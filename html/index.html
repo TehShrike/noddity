@@ -1,0 +1,18 @@
+<html>
+	<head>
+		<title>
+			{?post:metadata:title}
+		</title>
+	</head>
+	<body>
+		{?html:header}
+		<div id="content">
+			{?content_html}
+		</div>
+		<div id="menu">
+			<div id="posts">
+				{?post:last5}
+			</div>
+		</div>
+	</body>
+</html>
