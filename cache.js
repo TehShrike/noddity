@@ -3,8 +3,8 @@ var fs = require("fs");
 
 exports.getCache = function(directory, encoding, expiration)
 {
-	var encoding = encoding || "binary";
-	var expiration = expiration || false;
+	encoding = encoding || "binary";
+	expiration = expiration || false;
 	var storage = {}
 	
 	var updateFileExistence = function(file_name)
@@ -62,6 +62,8 @@ exports.getCache = function(directory, encoding, expiration)
 	{
 		if (!file_name)
 			return;
+			
+		callback = callback || function(data) {};
 
 		if (storage[file_name] && storage[file_name].loading)
 		{
@@ -95,11 +97,11 @@ exports.getCache = function(directory, encoding, expiration)
 			}
 
 			storage[file_name].loading = false;
-			var callback;
-			while (callback = storage[file_name].callbacks.shift())
+			var next_callback;
+			while (next_callback = storage[file_name].callbacks.shift())
 			{
 				//console.log("Calling a callback on load of " + file_name);
-				callback(data);
+				next_callback(data);
 			}
 		});
 

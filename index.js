@@ -6,6 +6,7 @@ var extension = require('./extension.js');
 
 var Converter = require("./Markdown.Converter").Converter;
 var converter = new Converter();
+//var converter = new Converter();
 
 extension.loadExtensions(config.extensions);
 
@@ -28,7 +29,7 @@ var parseURL = function(url)
 		{
 			noddity_url.slug = path_parts[2];
 			noddity_url.path = path_parts.splice(2).join('/');
-			//console.log("Set path to " + noddity_url.path);
+			//console.log("Set slug to " + noddity_url.slug);
 		}
 	}
 	if (url.search)
