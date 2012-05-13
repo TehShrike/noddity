@@ -26,8 +26,6 @@ var parsePage = function(original_text)
 			{
 				var property = metadata[1];
 				
-				console.log(property + ": " + metadata[2]);
-				
 				switch(property)
 				{
 					case 'date':
@@ -59,7 +57,6 @@ var post_file_watcher = (function()
 	var post_cache = {}
 	// post_metadata[key] = array of post file names ordered by post.key
 	var post_metadata = {}
-	var locks = {}
 
 	var removePostFromCache = function(file_name)
 	{
@@ -76,7 +73,7 @@ var post_file_watcher = (function()
 				{
 					for (var i = 0; i < post_metadata[property].length; ++i)
 					{
-						if (post_metadata[property][i].slug === post.slug)
+						if (post_metadata[property][i] === file_name)
 						{
 							post_metadata[property].splice(i, 1);
 							break;
@@ -90,35 +87,31 @@ var post_file_watcher = (function()
 
 	var addPostToCache = function(file_name, post)
 	{
-		if (!locks[file_name])
+		if (post_cache[file_name])
+			removePostFromCache(file_name);
+
+		post_cache[file_name] = post;
+
+		console.log("Added " + (post_cache[file_name].metadata.title || file_name) + " to cache");
+
+		for (property in post.metadata)
 		{
-			locks[file_name] = true;
+			var value = post.metadata[property];
 
-			if (post_cache[file_name])
-				removePostFromCache(file_name);
+			if (!post_metadata[property])
+				post_metadata[property] = [];
 
-			post_cache[file_name] = post;
+			post_metadata[property].push(file_name);
 
-			console.log("Added " + (post_cache[file_name].metadata.title || file_name) + " to cache");
-
-			for (property in post.metadata)
+			console.log("Sorting " + file_name + ": " + property);
+			post_metadata[property].sort(function(a, b)
 			{
-				var value = post.metadata[property];
+				//console.log("Comparing " + post_cache[a].metadata[property] + " and " + post_cache[b].metadata[property]);
+				if (post_cache[a].metadata[property] === post_cache[b].metadata[property]) 
+					return 0;
 
-				if (!post_metadata[property])
-					post_metadata[property] = [];
-
-				post_metadata[property].push(file_name);
-
-				post_metadata[property].sort(function(a, b)
-				{
-					if (post_cache[a][property] === post_cache[b][property]) 
-						return 0;
-
-					return (post_cache[a][property] < post_cache[b][property]) ? -1 : 1;
-				});
-			}
-			delete locks[file_name];
+				return (post_cache[a].metadata[property] < post_cache[b].metadata[property]) ? -1 : 1;
+			});
 		}
 	}
 
@@ -163,15 +156,13 @@ var post_file_watcher = (function()
 		if (!err)
 		{
 			for (i in files)
-			{
 				loadPostFromFile(files[i]);
-			}
 		}
 	});
 
 	fs.watch(post_directory, { persistant: false }, function(event, file_name)
 	{
-		console.log(event + ": " + file_name);
+		console.log("fs.watch saw event " + event + ": " + file_name);
 		loadPostFromFile(file_name);
 	});
 	

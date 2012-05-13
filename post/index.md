@@ -1,5 +1,4 @@
 title:  Noddity home page
-date:   2012-04-26
 
 lol index
 ----------
