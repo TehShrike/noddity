@@ -53,8 +53,8 @@ var parsePage = function(original_text)
 
 ///////////////// Managing the files in the post directory! /////////////////
 
-var post_file_watcher = (function() {
-
+var post_file_watcher = (function() 
+{
 	// post_cache[file_name] = post
 	var post_cache = {}
 	// post_metadata[key] = array of post file names ordered by post.key
@@ -240,10 +240,8 @@ exports.provideReplaceable = function(page, parameter, callback)
 		var posts = post_file_watcher.fetchPosts({}, 'date', 0, posts_to_display);
 		var output = "<ol>";
 		
-		
 		for (var i in posts)
 		{
-			//console.log("This post I'm looking at has this metadata: " + posts[i].metadata);
 			output += '<li><a href="' + encodeURIComponent(posts[i].slug) + '">';
 			output += encoder.htmlEncode(posts[i].metadata.title || '[Untitled]');
 			output += '</a></li>';
