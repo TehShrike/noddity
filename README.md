@@ -1,10 +1,5 @@
-Noddity
-=======
+Look, some experimentation that I've done building a http content server in node.js!
 
-Noddity is a blogging platform I'm building for shits and giggles!
+I've learned a good bit since this code was written.  Some of the code in this project is already broken out into its own module, and more code will likely follow.
 
-It's not ready for public consumption yet.  Once it is, I'll totally let you know, by changing this readme to something much more exciting.
-
-Noddity is built in node.js.  It has no interface to edit blog posts and content - the only interface is your favorite SSH client and text editor as you write posts in plaintext (with markdown).  So, you know, maybe that's cool.
-
-The todo list can be found [here!](https://trello.com/board/noddity/4fac2caa6ebf01780200209b)
+If I keep playing around with this, it will most likely be forming it into a light layer of glue holding together modules that I build, or want to try.
