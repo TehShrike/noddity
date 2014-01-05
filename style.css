@@ -1,0 +1,51 @@
+div.menu {
+	float: left;
+	position: relative;
+	padding: 25px;
+	width: 300px;
+}
+
+div.main {
+	float: left;
+	padding: 20px;
+	margin: 10px;
+	width: 700px;
+}
+
+@font-face {
+	font-family: 'sinanova-regularregular';
+	src: url('layout/font/sinanova_regular_macroman/SinaNovaReg-webfont.eot');
+	src: url('layout/font/sinanova_regular_macroman/SinaNovaReg-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('layout/font/sinanova_regular_macroman/SinaNovaReg-webfont.woff') format('woff'),
+		 url('layout/font/sinanova_regular_macroman/SinaNovaReg-webfont.ttf') format('truetype'),
+		 url('layout/font/sinanova_regular_macroman/SinaNovaReg-webfont.svg#sinanova-regularregular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'cantarellregular';
+	src: url('layout/font/cantarell_regular_macroman/Cantarell-Regular-webfont.eot');
+	src: url('layout/font/cantarell_regular_macroman/Cantarell-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('layout/font/cantarell_regular_macroman/Cantarell-Regular-webfont.woff') format('woff'),
+		 url('layout/font/cantarell_regular_macroman/Cantarell-Regular-webfont.ttf') format('truetype'),
+		 url('layout/font/cantarell_regular_macroman/Cantarell-Regular-webfont.svg#cantarellregular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+h1,h2,h3,h4 {
+	font-family: "cantarellregular","Lucida Sans Unicode","Lucida Sans","Geneva","Verdana","sans-serif";
+}
+
+body {
+	font-family: "sinanova-regularregular","Georgia","Cambria","Times New Roman","Times","serif";
+	font-size: x-large;
+}
+
+img.logo {
+	display: block;
+	width: 120px;
+	margin-left: auto;
+	margin-right: auto;
+}

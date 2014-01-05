@@ -515,7 +515,7 @@ else
                         (?:
                             \([^)]*\)       // allow one level of (correctly nested) parens (think MSDN)
                             |
-                            [^()]
+                            [^()\s]
                         )*?
                     )>?                
                     [ \t]*
@@ -530,7 +530,7 @@ else
             /g, writeAnchorTag);
             */
 
-            text = text.replace(/(\[((?:\[[^\]]*\]|[^\[\]])*)\]\([ \t]*()<?((?:\([^)]*\)|[^()])*?)>?[ \t]*((['"])(.*?)\6[ \t]*)?\))/g, writeAnchorTag);
+            text = text.replace(/(\[((?:\[[^\]]*\]|[^\[\]])*)\]\([ \t]*()<?((?:\([^)]*\)|[^()\s])*?)>?[ \t]*((['"])(.*?)\6[ \t]*)?\))/g, writeAnchorTag);
 
             //
             // Last, handle reference-style shortcuts: [link text]
@@ -1169,7 +1169,7 @@ else
             text = text.replace(/&(?!#?[xX]?(?:[0-9a-fA-F]+|\w+);)/g, "&amp;");
 
             // Encode naked <'s
-            text = text.replace(/<(?![a-z\/?\$!])/gi, "&lt;");
+            text = text.replace(/<(?![a-z\/?!]|~D)/gi, "&lt;");
 
             return text;
         }
