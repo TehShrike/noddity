@@ -1,191 +1,96 @@
-angular.module('postContent', [])
+angular.module('noddity', [])
 
-function PostController($scope, $routeParams) {
+var Butler = require('noddity-butler')
+
+function PostController($scope, $routeParams, superScoper) {
 	$scope.source = $routeParams.postSource
+	superScoper($scope)
 }
 
-function IndexController($scope) {
+function IndexController($scope, superScoper) {
 	$scope.source = 'home.md'
+	superScoper($scope)
 }
 
-angular.module('postContent').config(function($routeProvider) {
+angular.module('noddity').config(function($routeProvider) {
 	$routeProvider
 		.when('/', { templateUrl: 'layout/post.html', controller: IndexController })
 		.when('/post/:postSource', { templateUrl: 'layout/post.html', controller: PostController })
 		.otherwise({ redirectTo: '/' })
 })
 
-angular.module('postContent').factory('postPath', function() {
-	var makePath = function(root) {
-		return function(path) {
-			return root + '/' + path
-		}
-	}
-	return {
-		content: makePath('content')
-	}
+angular.module('noddity').factory('butler', function() {
+	var levelup = require('levelup')
+	var leveljs = require('level-js')
+	return new Butler('http://localhost.com/joshduff.com/content/', levelup('content', { db: leveljs }))
 })
 
-angular.module('postContent').factory('getPost', function($http, postPath) {
+angular.module('noddity').factory('superScoper', function(butler) {
 	var converter = new Markdown.Converter()
 
-	var waiters = {}
-	var downloaded = {}
+	return function superScoper(scope) {
+		if (typeof scope.$root.updatePost === 'undefined') {
+			scope = scope.$root
 
-	var downloadPostFromServer = function(source, cb) {
-		$http.get(postPath.content(source)).success(function(data, status, headers, config) {
-			var rawPost = TEXT_METADATA_PARSER.parse(data, {
-				date: 'date',
-				string: 'title'
+			butler.getPosts(function(err, list) {
+				if (!err) {
+					scope.postList = list
+				}
 			})
 
-			cb({
-				html: converter.makeHtml(rawPost.content),
-				metadata: rawPost.metadata,
-				source: source
-			})
-		})
-	}
-
-	var callBackWaiters = function(source) {
-		return function(post) {
-			downloaded[source] = post
-
-			var waitingForResponse = waiters[source]
-			waitingForResponse.forEach(function(cb) {
-				cb(post)
-			})
-			delete waiters[source]
-		}
-	}
-
-	var getPost = function(source, cb) {
-		if (typeof downloaded[source] === 'object') {
-			cb(downloaded[source])
-		} else {
-			if (typeof waiters[source] === 'undefined') {
-				waiters[source] = []
-				downloadPostFromServer(source, callBackWaiters(source))
+			function storePostOnScope(post) {
+				scope[post.filename] = post
+				scope[post.filename].html = converter.makeHtml(post.content)
 			}
-			waiters[source].push(cb)
-		}
-	}
 
-	return getPost
-})
-
-angular.module('postContent').factory('getPostList', function($http, getPost, postPath) {
-	var sortedPosts = null
-	var reversedPosts = null
-	var waitingCallbacks = []
-
-	$http.get(postPath.content("index.json")).success(function(data, status, headers, config) {
-		//var postSources = JSON.parse(data)
-		postSources = data
-		var processed = 0
-		var unsortedPosts = []
-		
-		var processPost = function(post) {
-			unsortedPosts.push(post)
-			processed++
-			if (processed === postSources.length) {
-				sortPosts('date')
-				waitingCallbacks.forEach(function(cb) {
-					cb()
+			scope.updatePost = function updatePost(key) {
+				butler.getPost(key, function(err, post) {
+					storePostOnScope(post)
 				})
-				waitingCallbacks = null
 			}
-		}
 
-		var sortPosts = function(property) {
-			sortedPosts = unsortedPosts.filter(function(post) {
-				return typeof post.metadata[property] !== 'undefined'
-			}).sort(function(a, b) {
-
-				if (a.metadata[property] === b.metadata[property]) 
-					return 0
-
-				return (a.metadata[property] < b.metadata[property]) ? -1 : 1
-			})
-			reversedPosts = sortedPosts.slice()
-			reversedPosts.reverse()
-		}
-
-		postSources.forEach(function(source) {
-			getPost(source, processPost)
-		})
-	})
-
-	var getListChunk = function(offset, count, ascending) {
-		offset = offset || 0
-		ascending = typeof ascending === 'boolean' ? ascending : true
-
-		var posts = ascending ? sortedPosts : reversedPosts
-
-		return count ? posts.slice(offset, offset + count) : posts
-	}
-
-	var getPostList = function(offset, count, cb) {
-		if (typeof offset === 'function') {
-			cb = offset
-			offset = null
-			count = null
-		} else if (typeof count === 'function') {
-			cb = count
-			count = null
-		}
-
-		if (sortedPosts === null) {
-			waitingCallbacks.push(function() {
-				cb(getListChunk(offset, count, false))
-			})
-		} else {
-			cb(getListChunk(offset, count, false))
-		}
-	}
-
-	return getPostList
-})
-
-angular.module('postContent').directive('postList', function(getPostList) {
-	return {
-		template: '<div ng-show="postList">'
-				+ '<h3>Posts</h3>'
-				+ '<ol>'
-					+ '<li ng-repeat="post in postList"><a href="#/post/{{post.source}}">{{post.metadata.title}}</a></li>'
-				+ '</ol>'
-			+ '</div>',
-		replace: true,
-		restrict: 'E',
-		link: function(scope, element, attrs, ctrl) {
-			getPostList(function(list) {
-				scope.postList = list
+			butler.on('post changed', function(key, newValue, oldValue) {
+				storePostOnScope(newValue)
 			})
 		}
 	}
 })
 
-angular.module('postContent').directive('post', function(getPost) {
+// angular.module('noddity').directive('postList', function(butler) {
+// 	return {
+// 		template: '<div ng-show="postList">'
+// 				+ '<h3>Posts</h3>'
+// 				+ '<ol>'
+// 					+ '<li ng-repeat="post in postList"><a href="#/post/{{post.source}}">{{post.metadata.title}}</a></li>'
+// 				+ '</ol>'
+// 			+ '</div>',
+// 		replace: true,
+// 		restrict: 'E'
+// 	}
+// })
+
+angular.module('noddity').directive('post', function(butler, superScoper) {
 	return {
-		template: '<div ng-show="post">'
-					+ '<h1>{{post.metadata.title}}</h1>'
-					+ '<div class="post-content" ng-bind-html-unsafe="post.html">'
+		template: '<div ng-show="$root[source]">'
+					+ '<h1>{{$root[source].metadata.title}}</h1>'
+					+ '<div class="post-content" ng-bind-html-unsafe="$root[source].html">'
 					+ '</div>'
 				+ '</div>',
 		replace: true,
 		restrict: 'E',
 		scope: {
-			source: '@'
+			source: '@source'
 		},
 		link: function(scope, element, attrs, ctrl) {
-			var refresh = function refresh() {
-				getPost(scope.source, function(newPost) {
-					scope.post = newPost
-				})
+
+			function refresh() {
+				scope.$root.updatePost(scope.source)
 			}
+
 			if (attrs.source) {
 				refresh()
 			}
+
 			scope.$watch('source', refresh)
 		}
 	}
