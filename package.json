@@ -16,7 +16,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "tap ./test/*.js"
+    "test": "tap ./test/*.js",
+    "watch": "watchify noddity.js -o main.js -d",
+    "build": "browserify noddity.js > main.js"
   },
   "devDependencies": {
     "tap": "~0.4.4"
