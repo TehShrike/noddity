@@ -4,7 +4,9 @@ var model = require('./model.js')
 var ractive = new Ractive({
 	el: 'body',
 	template: '#main',
-	data: {}
+	data: {
+		posts: {}
+	}
 })
 
 var updatePost = model(ractive)

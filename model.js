@@ -3,6 +3,7 @@ var levelup = require('levelup')
 var leveljs = require('level-js')
 
 module.exports = function keepUpdated(ractive) {
+	var converter = new Markdown.Converter()
 	var butler = new Butler('http://localhost.com/joshduff.com/content/', levelup('content', { db: leveljs }))
 
 	function doSomethingAboutThisError(err) {
@@ -19,13 +20,15 @@ module.exports = function keepUpdated(ractive) {
 
 
 	function updatePostInView(post) {
-		var keypath = 'posts.' + post.filename
-		ractive.set(keypath, post)
+		var posts = ractive.get('posts')
+		posts[post.filename] = post
+		ractive.update('posts')
 	}
 
 	function download(key) {
 		butler.getPost(key, function(err, post) {
 			if (!err) {
+				post.html = converter.makeHtml(post.content)
 				updatePostInView(post)
 			} else {
 				doSomethingAboutThisError(err)
