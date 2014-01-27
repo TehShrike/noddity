@@ -10,13 +10,12 @@
 
 <body ng-view>
 
-<script id='menuTemplate' type="text/ractive">
+<script id='main' type="text/ractive">
 <div class="menu">
 	<a href="#/">
-		<img class="logo" src="../joshduff.com/content/images/logo.svg"></img>
+		<img class="logo" src="../joshduff.com/content/images/logo.svg" />
 	</a>
 
-	{{#postList.length}}
 	<div>
 		<h3>Posts</h3>
 		<ol>
@@ -25,18 +24,13 @@
 			{{/postList}}
 		</ol>
 	</div>
-	{{/postList.length}}
 </div>
-</script>
 
-<script id='main' type="text/ractive">
-Current page: {{current}}
-
-Post:
-{{#posts[current]}}
-{{>post}}
-{{/posts[current]}}
-
+<div class="main">
+	{{#posts[current]}}
+	{{>post}}
+	{{/posts[current]}}
+</div>
 <!-- {{>post}} -->
 <div>
 	<h1>{{metadata.title}}</h1>
@@ -51,7 +45,7 @@ Post:
 
 	<script src="js-lib/Ractive.min.js"></script>
 	<script src="js-lib/Markdown.Converter.js"></script>
-	<script src="js-lib/text-metadata-parser.js"></script>
+	<script src="js-lib/satnav.js"></script>
 	<script src="main.js"></script>
 
 </html>

@@ -1,24 +1,12 @@
+var routing = require('./routing.js')
+var model = require('./model.js')
 
-var model = {
-	current: 'whatever',
-	posts: {
-		whatever: {
-			metadata: {
-				title: 'sup dawg'
-			},
-			html: 'I heard you like posts'
-		},
-		huh: {
-			metadata: {
-				title: 'FIZZLE'
-			},
-			html: 'FO SHIZZLE'
-		}
-	}
-}
-
-window.ractive = new Ractive({
+var ractive = new Ractive({
 	el: 'body',
 	template: '#main',
-	data: model
+	data: {}
 })
+
+var updatePost = model(ractive)
+
+routing(ractive)
