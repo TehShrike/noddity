@@ -17,6 +17,21 @@ body {
 	min-width: 1110px;
 }
 
+div.menu ol {
+	padding: 0;
+}
+
+div.menu li a {
+	text-decoration: none;
+}
+
+div.menu li {
+	border-bottom: thin solid rgba(55, 42, 26, 1);
+	margin: 20px 0px;
+	line-height: 1.05;
+	list-style-type: none;
+}
+
 @font-face {
 	font-family: 'sinanova-regularregular';
 	src: url('font/sinanova_regular_macroman/SinaNovaReg-webfont.eot');
@@ -39,7 +54,7 @@ body {
 	font-style: normal;
 }
 
-h1,h2,h3,h4 {
+h1,h2,h3,h4,div.menu a {
 	font-family: "cantarellregular","Lucida Sans Unicode","Lucida Sans","Geneva","Verdana","sans-serif";
 }
 
