@@ -2,9 +2,9 @@ var Butler = require('noddity-butler')
 var levelup = require('levelup')
 var leveljs = require('level-js')
 
-module.exports = function keepUpdated(ractive) {
+module.exports = function keepUpdated(ractive, noddityRoot) {
 	var converter = new Markdown.Converter()
-	var butler = new Butler('http://localhost.com/joshduff.com/content/', levelup('content', { db: leveljs }))
+	var butler = new Butler(noddityRoot, levelup('content', { db: leveljs }))
 
 	function doSomethingAboutThisError(err) {
 		console.log(err)
