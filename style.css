@@ -12,24 +12,29 @@ div.main {
 	width: 700px;
 }
 
+body {
+	float:left;
+	min-width: 1110px;
+}
+
 @font-face {
 	font-family: 'sinanova-regularregular';
-	src: url('layout/font/sinanova_regular_macroman/SinaNovaReg-webfont.eot');
-	src: url('layout/font/sinanova_regular_macroman/SinaNovaReg-webfont.eot?#iefix') format('embedded-opentype'),
-		 url('layout/font/sinanova_regular_macroman/SinaNovaReg-webfont.woff') format('woff'),
-		 url('layout/font/sinanova_regular_macroman/SinaNovaReg-webfont.ttf') format('truetype'),
-		 url('layout/font/sinanova_regular_macroman/SinaNovaReg-webfont.svg#sinanova-regularregular') format('svg');
+	src: url('font/sinanova_regular_macroman/SinaNovaReg-webfont.eot');
+	src: url('font/sinanova_regular_macroman/SinaNovaReg-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('font/sinanova_regular_macroman/SinaNovaReg-webfont.woff') format('woff'),
+		 url('font/sinanova_regular_macroman/SinaNovaReg-webfont.ttf') format('truetype'),
+		 url('font/sinanova_regular_macroman/SinaNovaReg-webfont.svg#sinanova-regularregular') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'cantarellregular';
-	src: url('layout/font/cantarell_regular_macroman/Cantarell-Regular-webfont.eot');
-	src: url('layout/font/cantarell_regular_macroman/Cantarell-Regular-webfont.eot?#iefix') format('embedded-opentype'),
-		 url('layout/font/cantarell_regular_macroman/Cantarell-Regular-webfont.woff') format('woff'),
-		 url('layout/font/cantarell_regular_macroman/Cantarell-Regular-webfont.ttf') format('truetype'),
-		 url('layout/font/cantarell_regular_macroman/Cantarell-Regular-webfont.svg#cantarellregular') format('svg');
+	src: url('font/cantarell_regular_macroman/Cantarell-Regular-webfont.eot');
+	src: url('font/cantarell_regular_macroman/Cantarell-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('font/cantarell_regular_macroman/Cantarell-Regular-webfont.woff') format('woff'),
+		 url('font/cantarell_regular_macroman/Cantarell-Regular-webfont.ttf') format('truetype'),
+		 url('font/cantarell_regular_macroman/Cantarell-Regular-webfont.svg#cantarellregular') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }

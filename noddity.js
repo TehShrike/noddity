@@ -1,5 +1,6 @@
-var routing = require('./routing.js')
-var model = require('./model.js')
+var routing = require('./js/routing.js')
+var model = require('./js/model.js')
+var Ractive = require('ractive')
 
 var ractive = new Ractive({
 	el: 'body',
@@ -9,6 +10,6 @@ var ractive = new Ractive({
 	}
 })
 
-var updatePost = model(ractive)
+model(ractive)
 
 routing(ractive)

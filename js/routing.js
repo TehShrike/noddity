@@ -9,5 +9,7 @@ module.exports = function(ractive, onChange) {
 		directions: function(params) {
 			ractive.set('current', 'home.md')
 		}
+	}).change(function(params, old) {
+		window.scrollTo(0,0)
 	}).otherwise('/').go()
 }

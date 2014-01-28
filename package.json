@@ -17,8 +17,8 @@
   },
   "scripts": {
     "test": "tap ./test/*.js",
-    "watch": "watchify noddity.js -o main.js -d",
-    "build": "browserify noddity.js > main.js"
+    "watch": "watchify noddity.js -o build.js -d",
+    "build": "browserify noddity.js > build.js"
   },
   "devDependencies": {
     "tap": "~0.4.4"
@@ -26,6 +26,7 @@
   "dependencies": {
     "noddity-butler": "~0.2.0",
     "level-js": "~1.0.8",
-    "levelup": "~0.18.2"
+    "levelup": "~0.18.2",
+    "ractive": "~0.3.9"
   }
 }
