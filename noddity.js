@@ -8,10 +8,14 @@ var ractive = new Ractive({
 	template: '#main',
 	data: {
 		posts: {},
-		logo: config.logo
+		logo: config.logo,
+		pagePathPrefix: config.pagePathPrefix
 	}
 })
 
-model(ractive, config.noddityRoot)
+model(ractive, config.noddityRoot, config.pagePathPrefix)
 
 routing(ractive)
+
+window.debug = require('./js/debug.js')
+window.ractive = ractive

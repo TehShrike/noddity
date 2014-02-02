@@ -1,4 +1,5 @@
 module.exports = {
 	logo: 'logo.svg',
-	noddityRoot: 'http://localhost.com/joshduff.com/content/'
+	noddityRoot: window.location.pathname + 'default-content/',
+	pagePathPrefix: 'post/'
 }

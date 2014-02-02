@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>
-		Josh Duff .com
+		Noddity
 	</title>
 
 	<link rel="stylesheet" type="text/css" href="style.css" />
@@ -20,7 +20,9 @@
 		<h3>Posts</h3>
 		<ol>
 			{{#postList}}
-			<li><a href="#/post/{{filename}}">{{metadata.title}}</a></li>
+				{{#metadata.title}}
+					<li><a href="#/{{pagePathPrefix}}{{filename}}">{{metadata.title}}</a></li>
+				{{/metadata.title}}
 			{{/postList}}
 		</ol>
 	</div>
@@ -43,7 +45,6 @@
 
 </body>
 
-	<script src="js/vendor/Markdown.Converter.js"></script>
 	<script src="js/vendor/satnav.js"></script>
 	<script src="build.js"></script>
 

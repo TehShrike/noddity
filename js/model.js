@@ -1,10 +1,13 @@
 var Butler = require('noddity-butler')
 var levelup = require('levelup')
 var leveljs = require('level-js')
+var Converter = require('pagedown').Converter
+var Linkifier = require('./linkifier.js')
 
-module.exports = function keepUpdated(ractive, noddityRoot) {
-	var converter = new Markdown.Converter()
+module.exports = function keepUpdated(ractive, noddityRoot, pagePathPrefix) {
+	var converter = new Converter()
 	var butler = new Butler(noddityRoot, levelup('content', { db: leveljs }))
+	var linkify = new Linkifier('#/' + pagePathPrefix)
 
 	function doSomethingAboutThisError(err) {
 		console.log(err)
@@ -28,7 +31,7 @@ module.exports = function keepUpdated(ractive, noddityRoot) {
 	function download(key) {
 		butler.getPost(key, function(err, post) {
 			if (!err) {
-				post.html = converter.makeHtml(post.content)
+				post.html = linkify(converter.makeHtml(post.content))
 				updatePostInView(post)
 			} else {
 				doSomethingAboutThisError(err)
@@ -37,7 +40,9 @@ module.exports = function keepUpdated(ractive, noddityRoot) {
 	}
 
 	ractive.observe('current', function(key) {
-		download(key)
+		if (typeof key === 'string') {
+			download(key)
+		}
 	})
 
 	butler.on('post changed', function(key, newValue, oldValue) {
