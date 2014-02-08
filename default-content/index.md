@@ -2,7 +2,7 @@
 
 This is the Noddity default site!
 
-{{pagePathPrefix}}
+{{current-version.md}}
 
 This is the main page, where I explain the broad overview about Noddity.
 
@@ -11,3 +11,5 @@ This is the main page, where I explain the broad overview about Noddity.
 In this paragraph, that same [[link-syntax]] had darn well better go somewhere!
 
 That's not a real link, though.  For a real link, see the [[noddity-backend.md|Noddity backend]] page.
+
+{{sig.md}}

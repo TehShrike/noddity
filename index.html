@@ -11,36 +11,30 @@
 <body>
 
 <script id='main' type="text/ractive">
-<div class="menu">
-	<a href="#/">
-		<img class="logo" src="{{logo}}" />
-	</a>
 
-	<div>
-		<h3>Posts</h3>
-		<ol>
-			{{#postList}}
-				{{#metadata.title}}
-					<li><a href="#/{{pagePathPrefix}}{{filename}}">{{metadata.title}}</a></li>
-				{{/metadata.title}}
-			{{/postList}}
-		</ol>
-	</div>
-</div>
+	<div class="menu">
+		<a href="#/">
+			<img class="logo" src="{{logo}}" />
+		</a>
 
-<div class="main">
-	{{#posts[current]}}
-	{{>post}}
-	{{/posts[current]}}
-</div>
-<!-- {{>post}} -->
-<div>
-	<h1>{{metadata.title}}</h1>
-	<div class="post-content">
-		{{{html}}}
+		<div>
+			<h3>Posts</h3>
+			<ol>
+				{{#postList}}
+					{{#metadata.title}}
+						<li><a href="#/{{pagePathPrefix}}{{filename}}">{{metadata.title}}</a></li>
+					{{/metadata.title}}
+				{{/postList}}
+			</ol>
+		</div>
 	</div>
-</div>
-<!-- {{/post}} -->
+
+	<div class="main">
+		{{#posts[current]}}
+			{{>post}}
+		{{/posts[current]}}
+	</div>
+
 </script>
 
 </body>

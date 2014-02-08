@@ -1,14 +1,9 @@
-var Butler = require('noddity-butler')
-var levelup = require('levelup')
-var leveljs = require('level-js')
 var Converter = require('pagedown').Converter
-var Linkifier = require('./linkifier.js')
+var template = require('./template.js')
 
-module.exports = function keepUpdated(ractive, noddityRoot, pagePathPrefix) {
-	var converter = new Converter()
-	var butler = new Butler(noddityRoot, levelup('content', { db: leveljs }))
-	var linkify = new Linkifier('#/' + pagePathPrefix)
+var converter = new Converter()
 
+module.exports = function keepUpdated(ractive, butler, linkify) {
 	function doSomethingAboutThisError(err) {
 		console.log(err)
 	}
@@ -26,12 +21,24 @@ module.exports = function keepUpdated(ractive, noddityRoot, pagePathPrefix) {
 		var posts = ractive.get('posts')
 		posts[post.filename] = post
 		ractive.update('posts')
+		createTemplateElements()
+	}
+
+	function createTemplateElements() {
+		ractive.findAll('.noddity-template').forEach(function(element) {
+			var postName = template.getPostName(element.id)
+			keepUpdated(template.createRactivePost(element, postName), butler, linkify)
+		})
 	}
 
 	function download(key) {
 		butler.getPost(key, function(err, post) {
 			if (!err) {
-				post.html = linkify(converter.makeHtml(post.content))
+				var html = linkify(converter.makeHtml(post.content))
+				post.html = html.replace(/{{([\w.-]+)}}/gm, function(match, postName) {
+					return template.generatePostDiv(postName)
+				})
+
 				updatePostInView(post)
 			} else {
 				doSomethingAboutThisError(err)

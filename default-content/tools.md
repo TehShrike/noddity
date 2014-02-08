@@ -6,3 +6,5 @@ Here I talk about the tools of Noddity!  The various modules you can use if you 
 - noddity-retrieval
 - levelup
 - levelup-cache
+
+{{sig.md}}

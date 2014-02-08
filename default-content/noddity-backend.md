@@ -15,4 +15,4 @@ So exciting you won't believe it!
 3. Cat
 4. Hat
 
-{{Current version}}
+{{sig.md}}
