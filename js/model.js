@@ -8,20 +8,31 @@ module.exports = function keepUpdated(ractive, butler, linkify) {
 		console.log(err)
 	}
 
-	butler.getPosts(function(err, posts) {
-		if (!err) {
-			ractive.set('postList', posts.reverse())
-		} else {
-			doSomethingAboutThisError(err)
-		}
-	})
-
+	function getPostList() {
+		butler.getPosts(function(err, posts) {
+			if (!err) {
+				ractive.set('postList', posts.reverse().filter(function(post) {
+					return typeof post.metadata.title === 'string'
+				}).map(function(post) {
+					return {
+						title: post.metadata.title,
+						filename: post.filename
+					}
+				}))
+			} else {
+				doSomethingAboutThisError(err)
+			}
+		})
+	}
 
 	function updatePostInView(post) {
-		var posts = ractive.get('posts')
-		posts[post.filename] = post
-		ractive.update('posts')
+		ractive.set('currentPost', post)
 		createTemplateElements()
+
+		// Waiting until the current post is displayed before fetching the list of posts
+		if (ractive.get('postList') === undefined) {
+			getPostList()
+		}
 	}
 
 	function createTemplateElements() {
@@ -33,15 +44,15 @@ module.exports = function keepUpdated(ractive, butler, linkify) {
 
 	function download(key) {
 		butler.getPost(key, function(err, post) {
-			if (!err) {
+			if (err) {
+				doSomethingAboutThisError(err)
+			} else if (key === ractive.get('current')) {
 				var html = linkify(converter.makeHtml(post.content))
 				post.html = html.replace(/{{([\w.-]+)}}/gm, function(match, postName) {
 					return template.generatePostDiv(postName)
 				})
 
 				updatePostInView(post)
-			} else {
-				doSomethingAboutThisError(err)
 			}
 		})
 	}
@@ -53,8 +64,8 @@ module.exports = function keepUpdated(ractive, butler, linkify) {
 	})
 
 	butler.on('post changed', function(key, newValue, oldValue) {
-		updatePostInView(newValue)
+		if (key === ractive.get('current')) {
+			updatePostInView(newValue)
+		}
 	})
-
-	return download
 }

@@ -14,11 +14,11 @@ var ractive = new Ractive({
 	data: {
 		posts: {},
 		logo: config.logo,
-		pagePathPrefix: config.pagePathPrefix
+		pagePathPrefix: config.pagePathPrefix,
+		editLink: config.editLink
 	},
 	partials: {
-		post: postPartial,
-		sig: 'Sincerely, TehShrike'
+		post: postPartial
 	}
 })
 

@@ -21,18 +21,17 @@
 			<h3>Posts</h3>
 			<ol>
 				{{#postList}}
-					{{#metadata.title}}
-						<li><a href="#/{{pagePathPrefix}}{{filename}}">{{metadata.title}}</a></li>
-					{{/metadata.title}}
+					<li><a href="#/{{pagePathPrefix}}{{filename}}">{{title}}</a></li>
 				{{/postList}}
 			</ol>
 		</div>
 	</div>
 
 	<div class="main">
-		{{#posts[current]}}
+		<div id="edit-post-link"><a href="{{editLink}}{{current}}">Edit this post</a></div>
+		{{#currentPost}}
 			{{>post}}
-		{{/posts[current]}}
+		{{/currentPost}}
 	</div>
 
 </script>

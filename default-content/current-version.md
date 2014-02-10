@@ -1,1 +1,1 @@
-The *current version* of Noddity is `0.0.13` as far as you know.
+The *current version* of Noddity is `0.0.13` as far as you know. {{sig.md}}

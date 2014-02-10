@@ -32,10 +32,8 @@ function generatePostDiv(postName) {
 function createRactivePost(element, postName) {
 	return new Ractive({
 		el: element,
-		template: "{{#posts[current]}}{{>post}}{{/posts[current]}}",
+		template: "{{#currentPost}}{{>post}}{{/currentPost}}",
 		data: {
-			posts: {
-			},
 			current: postName
 		},
 		partials: {
