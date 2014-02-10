@@ -18,7 +18,7 @@
   "scripts": {
     "test": "tap ./test/*.js",
     "watch": "watchify noddity.js -o build.js -d",
-    "build": "browserify noddity.js > build.js"
+    "build": "browserify noddity.js | uglifyjs > build.js"
   },
   "devDependencies": {
     "tap": "~0.4.4"
