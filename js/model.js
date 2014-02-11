@@ -4,6 +4,8 @@ var template = require('./template.js')
 var converter = new Converter()
 
 module.exports = function keepUpdated(ractive, butler, linkify) {
+	var children = {}
+
 	function doSomethingAboutThisError(err) {
 		console.log(err)
 	}
@@ -38,7 +40,9 @@ module.exports = function keepUpdated(ractive, butler, linkify) {
 	function createTemplateElements() {
 		ractive.findAll('.noddity-template').forEach(function(element) {
 			var postName = template.getPostName(element.id)
-			keepUpdated(template.createRactivePost(element, postName), butler, linkify)
+			var childRactive = template.createRactivePost(element, postName)
+			children[element.id] = childRactive
+			keepUpdated(childRactive, butler, linkify)
 		})
 	}
 
@@ -59,13 +63,30 @@ module.exports = function keepUpdated(ractive, butler, linkify) {
 
 	ractive.observe('current', function(key) {
 		if (typeof key === 'string') {
+			teardownChildren()
 			getPost(key)
 		}
 	})
 
-	butler.on('post changed', function(key, newValue, oldValue) {
+	function onPostChanged(key, newValue, oldValue) {
 		if (key === ractive.get('current')) {
 			updatePostInView(newValue)
 		}
+	}
+
+	butler.on('post changed', onPostChanged)
+
+	function teardownChildren() {
+		Object.keys(children).map(function(id) {
+			return children[id]
+		}).forEach(function(ractive) {
+			ractive.teardown()
+		})
+		children = {}
+	}
+
+	ractive.on('teardown', function onTeardown() {
+		butler.removeListener('post changed', onPostChanged)
+		teardownChildren()
 	})
 }
