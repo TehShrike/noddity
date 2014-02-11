@@ -42,7 +42,7 @@ module.exports = function keepUpdated(ractive, butler, linkify) {
 		})
 	}
 
-	function download(key) {
+	function getPost(key) {
 		butler.getPost(key, function(err, post) {
 			if (err) {
 				doSomethingAboutThisError(err)
@@ -59,7 +59,7 @@ module.exports = function keepUpdated(ractive, butler, linkify) {
 
 	ractive.observe('current', function(key) {
 		if (typeof key === 'string') {
-			download(key)
+			getPost(key)
 		}
 	})
 

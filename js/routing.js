@@ -1,6 +1,6 @@
 var config = require('../config.js')
 
-module.exports = function(ractive, onChange) {
+module.exports = function(ractive) {
 	return Satnav({}).navigate({
 		path: config.pagePathPrefix + '{name}',
 		directions: function(params) {

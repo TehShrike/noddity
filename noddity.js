@@ -22,6 +22,27 @@ var ractive = new Ractive({
 	}
 })
 
+var title = new Ractive({
+	el: 'title',
+	template: '{{title}}{{#page}} | {{page}}{{/page}}',
+	data: {
+		title: config.title
+	}
+})
+
+ractive.observe('current', function(key) {
+	if (typeof key === 'string') {
+		butler.getPost(key, function(err, post) {
+			if (!err) {
+				title.set('page', post.metadata.title)
+			} else {
+				title.set('page', null)
+				console.log(err)
+			}
+		})
+	}
+})
+
 var butler = new Butler(config.noddityRoot, levelup('content', { db: leveljs }))
 var linkify = new Linkifier('#/' + config.pagePathPrefix)
 
