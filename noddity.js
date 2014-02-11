@@ -7,6 +7,7 @@ var routing = require('./js/routing.js')
 var Linkifier = require('./js/linkifier.js')
 var model = require('./js/model.js')
 var postPartial = require('./js/postPartial.js')
+var Leveldown = require('localstorage-down')
 
 var ractive = new Ractive({
 	el: 'body',
@@ -43,7 +44,9 @@ ractive.observe('current', function(key) {
 	}
 })
 
-var butler = new Butler(config.noddityRoot, levelup('content', { db: leveljs }))
+// Safari doesn't support indexedDB; have to use localstorage in that case
+var storage = window.indexedDB ? leveljs : function leveldownFactory(location) { return new Leveldown(location) }
+var butler = new Butler(config.noddityRoot, levelup('content', { db: storage }))
 var linkify = new Linkifier('#/' + config.pagePathPrefix)
 
 model(ractive, butler, linkify)
