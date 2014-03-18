@@ -6,22 +6,8 @@ var config = require('./config.js')
 var routing = require('./js/routing.js')
 var Linkifier = require('./js/linkifier.js')
 var Model = require('./js/mainViewModel.js')
-var postPartial = require('./js/postPartial.js')
 var Leveldown = require('localstorage-down')
 
-var ractive = new Ractive({
-	el: 'body',
-	template: '#main',
-	data: {
-		posts: {},
-		logo: config.logo,
-		pagePathPrefix: config.pagePathPrefix,
-		editLink: config.editLink
-	},
-	partials: {
-		post: postPartial
-	}
-})
 
 var title = new Ractive({
 	el: 'title',
@@ -36,7 +22,7 @@ var storage = window.indexedDB ? leveljs : function leveldownFactory(location) {
 var butler = new Butler(config.noddityRoot, levelup('content', { db: storage }))
 var linkify = new Linkifier('#/' + config.pagePathPrefix)
 
-var model = new Model(ractive, butler, linkify)
+var model = new Model(butler, linkify)
 
 var router = routing()
 
@@ -54,4 +40,3 @@ router.on('current', function(key) {
 })
 
 window.debug = require('./js/debug.js')
-window.ractive = ractive

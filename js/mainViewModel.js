@@ -1,11 +1,28 @@
+var Ractive = require('ractive')
 var Converter = require('pagedown').Converter
 var Template = require('./template.js')
+var postPartial = require('./postPartial.js')
+var config = require('../config.js')
 
 var converter = new Converter()
 
-module.exports = function MainViewModel(ractive, butler, linkify) {
+module.exports = function MainViewModel(butler, linkify) {
 	var currentPostName = null
 	var templateManager = new Template(butler, linkify)
+	var ractive = new Ractive({
+		el: 'body',
+		template: '#main',
+		data: {
+			posts: {},
+			logo: config.logo,
+			pagePathPrefix: config.pagePathPrefix,
+			editLink: config.editLink
+		},
+		partials: {
+			post: postPartial
+		}
+	})
+
 
 	function doSomethingAboutThisError(err) {
 		console.log(err)

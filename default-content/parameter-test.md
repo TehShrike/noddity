@@ -1,4 +1,4 @@
-Title: parameter test
+title: parameter test
 
 *First* parameter: {{1}}
 *Second* parameter: {{2}}
