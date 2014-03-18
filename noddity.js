@@ -5,7 +5,7 @@ var leveljs = require('level-js')
 var config = require('./config.js')
 var routing = require('./js/routing.js')
 var Linkifier = require('./js/linkifier.js')
-var model = require('./js/model.js')
+var Model = require('./js/mainViewModel.js')
 var postPartial = require('./js/postPartial.js')
 var Leveldown = require('localstorage-down')
 
@@ -31,27 +31,27 @@ var title = new Ractive({
 	}
 })
 
-ractive.observe('current', function(key) {
-	if (typeof key === 'string') {
-		butler.getPost(key, function(err, post) {
-			if (!err) {
-				title.set('page', post.metadata.title)
-			} else {
-				title.set('page', null)
-				console.log(err)
-			}
-		})
-	}
-})
-
 // Safari doesn't support indexedDB; have to use localstorage in that case
 var storage = window.indexedDB ? leveljs : function leveldownFactory(location) { return new Leveldown(location) }
 var butler = new Butler(config.noddityRoot, levelup('content', { db: storage }))
 var linkify = new Linkifier('#/' + config.pagePathPrefix)
 
-model(ractive, butler, linkify)
+var model = new Model(ractive, butler, linkify)
 
-routing(ractive)
+var router = routing()
+
+router.on('current', function(key) {
+	model.setCurrent(key)
+
+	butler.getPost(key, function(err, post) {
+		if (!err) {
+			title.set('page', post.metadata.title)
+		} else {
+			title.set('page', null)
+			console.log(err)
+		}
+	})
+})
 
 window.debug = require('./js/debug.js')
 window.ractive = ractive

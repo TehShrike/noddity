@@ -1,5 +1,5 @@
 var test = require('tap').test
-var template = require('../js/template.js')
+var template = require('../js/templateToolbox.js')
 
 test('Generates an id that parses back to the same name', function(t) {
 

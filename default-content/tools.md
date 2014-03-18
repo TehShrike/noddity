@@ -7,4 +7,10 @@ Here I talk about the tools of Noddity!  The various modules you can use if you 
 - levelup
 - levelup-cache
 
-{{sig.md}}
+<<parameter-test.md|wat|uh|ok|butts=lol butts>>
+
+<<parameter-test.md|butts=YES BUTTS|no u|WAT>>
+
+<<parameter-test.md|thing=yes|butts=no>>
+
+<<sig.md>>

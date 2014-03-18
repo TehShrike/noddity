@@ -1,10 +1,11 @@
 var Converter = require('pagedown').Converter
-var template = require('./template.js')
+var Template = require('./template.js')
 
 var converter = new Converter()
 
-module.exports = function keepUpdated(ractive, butler, linkify) {
-	var children = {}
+module.exports = function MainViewModel(ractive, butler, linkify) {
+	var currentPostName = null
+	var templateManager = new Template(butler, linkify)
 
 	function doSomethingAboutThisError(err) {
 		console.log(err)
@@ -28,8 +29,9 @@ module.exports = function keepUpdated(ractive, butler, linkify) {
 	}
 
 	function updatePostInView(post) {
+		post.html = linkify(converter.makeHtml(templateManager.processMarkdown(post.content)))
 		ractive.set('currentPost', post)
-		createTemplateElements()
+		templateManager.createTemplateElements(ractive)
 
 		// Waiting until the current post is displayed before fetching the list of posts
 		if (ractive.get('postList') === undefined) {
@@ -37,56 +39,37 @@ module.exports = function keepUpdated(ractive, butler, linkify) {
 		}
 	}
 
-	function createTemplateElements() {
-		ractive.findAll('.noddity-template').forEach(function(element) {
-			var postName = template.getPostName(element.id)
-			var childRactive = template.createRactivePost(element, postName)
-			children[element.id] = childRactive
-			keepUpdated(childRactive, butler, linkify)
-		})
-	}
 
 	function getPost(key) {
 		butler.getPost(key, function(err, post) {
 			if (err) {
 				doSomethingAboutThisError(err)
-			} else if (key === ractive.get('current')) {
-				var html = linkify(converter.makeHtml(post.content))
-				post.html = html.replace(/{{([\w.-]+)}}/gm, function(match, postName) {
-					return template.generatePostDiv(postName)
-				})
-
+			} else if (key === currentPostName) {
 				updatePostInView(post)
 			}
 		})
 	}
 
-	ractive.observe('current', function(key) {
-		if (typeof key === 'string') {
-			teardownChildren()
-			getPost(key)
-		}
-	})
-
 	function onPostChanged(key, newValue, oldValue) {
-		if (key === ractive.get('current')) {
+		if (key === currentPostName) {
 			updatePostInView(newValue)
 		}
 	}
 
 	butler.on('post changed', onPostChanged)
 
-	function teardownChildren() {
-		Object.keys(children).map(function(id) {
-			return children[id]
-		}).forEach(function(ractive) {
-			ractive.teardown()
-		})
-		children = {}
-	}
-
 	ractive.on('teardown', function onTeardown() {
 		butler.removeListener('post changed', onPostChanged)
-		teardownChildren()
+		templateManager.teardownChildren()
 	})
+
+	function changeCurrentPost(key) {
+		templateManager.teardownChildren()
+		currentPostName = key
+		getPost(key)
+	}
+
+	return {
+		setCurrent: changeCurrentPost
+	}
 }
