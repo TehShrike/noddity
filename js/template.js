@@ -28,20 +28,22 @@ module.exports = function Template(butler, linkify) {
 
 	function getTemplateDataObject(pieces) {
 		var dataz = {}
-		pieces.forEach(function(piece, index) {
+		var unnamedParameters = 0
+
+		pieces.forEach(function(piece) {
 			var keyAndValue = piece.split('=')
-			var numericKey = index + 1
-			var value
+			var key, value
 
 			if (keyAndValue.length > 1) {
-				var key = keyAndValue[0]
+				key = keyAndValue[0]
 				value = keyAndValue[1]
-				dataz[key] = value
 			} else {
+				unnamedParameters++
+				key = unnamedParameters
 				value = keyAndValue[0]
 			}
 
-			dataz[numericKey] = value
+			dataz[key] = value
 		})
 		return dataz
 	}
