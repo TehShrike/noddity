@@ -13,7 +13,7 @@
 <script id='main' type="text/ractive">
 
 	<div class="menu">
-		<a href="#/">
+		<a href="#!/">
 			<img class="logo" src="{{logo}}" />
 		</a>
 
@@ -21,7 +21,7 @@
 			<h3>Posts</h3>
 			<ol>
 				{{#postList}}
-					<li><a href="#/{{pagePathPrefix}}{{filename}}">{{title}}</a></li>
+					<li><a href="#!/{{pagePathPrefix}}{{filename}}">{{title}}</a></li>
 				{{/postList}}
 			</ol>
 		</div>
