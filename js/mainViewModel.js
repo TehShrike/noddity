@@ -81,6 +81,7 @@ module.exports = function MainViewModel(butler, linkify) {
 	})
 
 	function changeCurrentPost(key) {
+		ractive.set('current', key)
 		templateManager.teardownChildren()
 		currentPostName = key
 		getPost(key)
