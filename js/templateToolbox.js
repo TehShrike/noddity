@@ -25,7 +25,7 @@ function isAPostDiv(id) {
 }
 
 function generatePostDiv(postId) {
-	return '<div class="noddity-template" id="' + postId + '"></div>'
+	return '<span class="noddity-template" id="' + postId + '"></span>'
 }
 
 module.exports = {

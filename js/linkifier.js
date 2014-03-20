@@ -1,16 +1,8 @@
-function numberOfOccurrances(str, input) {
-	var occurrances = 0
-	var current = input.indexOf(str)
-	while (current !== -1) {
-		occurrances++
-		current = input.indexOf(str, current + 1)
-	}
-	return occurrances
-}
+var numberOfOccurrances = require('./numberOfOccurrances.js')
 
 module.exports = function Linkifier(rootPath) {
 	return function linkify(htmlString) {
-		return htmlString.replace(/\[\[([\w.-]+)(?:\|([^\n]+))?\]\]/gm, function(found, page, linkText, offset, wholeString) {
+		return htmlString.replace(/\[\[([\w.-]+)(?:\|([^\]>\n]+))?\]\]/gm, function(found, page, linkText, offset, wholeString) {
 			var numberOfPrecedingCodeOpeners = numberOfOccurrances('<code', wholeString.substr(0, offset))
 			var numberOfPrecedingCodeClosers = numberOfOccurrances('</code', wholeString.substr(0, offset))
 

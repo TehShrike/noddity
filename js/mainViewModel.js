@@ -46,7 +46,7 @@ module.exports = function MainViewModel(butler, linkify) {
 	}
 
 	function updatePostInView(post) {
-		post.html = linkify(converter.makeHtml(templateManager.processMarkdown(post.content)))
+		post.html = templateManager.processPost(post)
 		ractive.set('currentPost', post)
 		templateManager.createTemplateElements(ractive)
 

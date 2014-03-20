@@ -2,6 +2,7 @@ var Ractive = require('ractive')
 var toolbox = require('./templateToolbox.js')
 var postPartial = require('./postPartial.js')
 var Converter = require('pagedown').Converter
+var numberOfOccurrances = require('./numberOfOccurrances.js')
 
 var converter = new Converter()
 
@@ -48,16 +49,34 @@ module.exports = function Template(butler, linkify) {
 		return dataz
 	}
 
-	function processMarkdown(markdownText) {
-		return markdownText.replace(/<<([^>]+)>>/gm, function(match, templateText) {
-			var pieces = templateText.split('|')
-			var postName = pieces.shift(0)
-			var postId = toolbox.generateId(postName)
+	function addHtmlElements(html) {
+		return html.replace(/::([^:]+)::/gm, function(match, templateText, offset, wholeString) {
+			var numberOfPrecedingCodeOpeners = numberOfOccurrances('<code', wholeString.substr(0, offset))
+			var numberOfPrecedingCodeClosers = numberOfOccurrances('</code', wholeString.substr(0, offset))
 
-			templateData[postId] = getTemplateDataObject(pieces)
+			if (numberOfPrecedingCodeOpeners !== numberOfPrecedingCodeClosers) {
+				return match
+			} else {
+				var pieces = templateText.split('|')
+				var postName = pieces.shift(0)
+				var postId = toolbox.generateId(postName)
 
-			return toolbox.generatePostDiv(postId)
+				templateData[postId] = getTemplateDataObject(pieces)
+
+				return toolbox.generatePostDiv(postId)
+			}
 		})
+	}
+
+	// TODO: move this out of the template class-thingy and into its own module
+	// the template bit shouldn't be responsible for the markdown and linkifying, but
+	// it's better than duplicating the code at the moment
+	function processPost(post) {
+		var content = (post.metadata.markdown !== false) ? converter.makeHtml(post.content) : post.content
+
+		var html = addHtmlElements(linkify(content))
+
+		return html
 	}
 
 	function createRactivePost(element, postId) {
@@ -68,7 +87,7 @@ module.exports = function Template(butler, linkify) {
 				doSomethingAboutThisError(err)
 			} else if (typeof templateData[postId] !== 'undefined') {
 				var templateManager = new Template(butler, linkify)
-				var html = linkify(converter.makeHtml(templateManager.processMarkdown(post.content)))
+				var html = processPost(post)
 
 				var ractive = new Ractive({
 					el: element,
@@ -89,6 +108,6 @@ module.exports = function Template(butler, linkify) {
 	return {
 		createTemplateElements: createTemplateElements,
 		teardownChildren: teardownChildren,
-		processMarkdown: processMarkdown
+		processPost: processPost
 	}
 }
