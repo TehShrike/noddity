@@ -13,7 +13,7 @@
 <script id='main' type="text/ractive">
 
 	<div class="menu">
-		<a href="#!/">
+		<a href="{{pathPrefix}}">
 			<img class="logo" src="{{logo}}" />
 		</a>
 
@@ -21,17 +21,19 @@
 			<h3>Posts</h3>
 			<ol>
 				{{#postList}}
-					<li><a href="#!/{{pagePathPrefix}}{{filename}}">{{title}}</a></li>
+					<li><a href="{{pathPrefix}}{{pagePathPrefix}}{{filename}}">{{title}}</a></li>
 				{{/postList}}
 			</ol>
 		</div>
 	</div>
 
 	<div class="main">
-		<div id="edit-post-link"><a href="{{editLink}}{{current}}">Edit this post</a></div>
-		{{#currentPost}}
-			{{>post}}
-		{{/currentPost}}
+		{{#editLink}}<div id="edit-post-link"><a href="{{editLink}}{{current}}">Edit this post</a></div>{{/editLink}}
+		<article>
+			{{#currentPost}}
+				{{>post}}
+			{{/currentPost}}
+		</article>
 	</div>
 
 </script>

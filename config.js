@@ -1,7 +1,9 @@
 module.exports = {
 	title: 'Noddity',
-	logo: 'logo.svg',
 	noddityRoot: window.location.pathname + 'default-content/',
-	pagePathPrefix: 'post/',
-	editLink: 'https://github.com/TehShrike/noddity/edit/master/default-content/'
+	editLink: 'https://github.com/TehShrike/noddity/edit/master/default-content/',
+	logo: 'logo.svg',
+	errorPage: '404.md',
+	pathPrefix: '#!/',
+	pagePathPrefix: 'post/'
 }

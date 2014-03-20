@@ -1,9 +1,8 @@
-title: Welcome!
-
-Welcome to Noddity, the awesome cms-thing!
---------------
+title: Welcome to Noddity, the awesome cms-thing!
 
 I wrote Noddity to replace the unnecessarily-heavy backend-centric framework that was running my personal blog-site.
+
+Its purpose is to give me (and anyone else inclined to use it) an easy way to publish markdown-based content to a minimalist blog or wiki-type site.
 
 ### Distinctives
 
@@ -16,8 +15,8 @@ I wrote Noddity to replace the unnecessarily-heavy backend-centric framework tha
 Those were my primary goals while writing this thing, but some of my other priorities soaked through too:
 
 - "Edit" button on every page so that people can fix my spelling mistakes for me (via pull requests on Github!)
-- [MediaWiki-style](https://www.mediawiki.org/wiki/Help:Links#Internal_links) internal links
-- [MediaWiki-style](https://www.mediawiki.org/wiki/Help:Templates) templates, with parameters
+- [MediaWiki-style internal links](https://www.mediawiki.org/wiki/Help:Links#Internal_links)
+- [MediaWiki-style templates](https://www.mediawiki.org/wiki/Help:Templates), with parameters
 
 ### Downsides
 
@@ -25,7 +24,7 @@ Those were my primary goals while writing this thing, but some of my other prior
 
 This is a side effect of wanting to be able to deploy new content on generic HTTP servers without any build step.
 
-I can't deploy a blog without an RSS feed, though, so I [made a service](https://github.com/TehShrike/rssaas) to serve up feeds for any blog using the Noddity backend (that directory full of markdown files).
+I won't deploy my blog without an RSS feed, though, so I [made a service](https://github.com/TehShrike/rssaas) to serve up feeds for any blog using the Noddity backend (that directory full of markdown files).
 
 My goal is to have one of those RSS servers running, and have all of my content sites that need an RSS feed point people to that single server to get their feeds.
 
@@ -47,3 +46,21 @@ Well, it's for me, obviously.  I'm planning on using it for all my personal site
 Buuuuut I figured there might be other people who would be interested in those same features that I wanted, so here we are.
 
 Even if it doesn't make sense for your own blog, if you want a light-weight wiki where people make contributions via something like Github as pull requests or merges (no more worrying about spam, or MediaWiki user privileges!) you may want to try it out.
+
+Tell me what you think!
+---------
+
+[Hit me up on Twitter](https://twitter.com/TehShrike) or <a href="mailty:me@JoshDuff.com">send me an email</a>!  The Github repository is [right over here](https://github.com/TehShrike/noddity) and would love for strangers to touch it.
+
+Thanks
+-------
+
+Noddity relies very heavily on:
+
+- [browserify](http://browserify.org/)
+- [LevelUP](https://github.com/rvagg/node-levelup)
+- [Ractive.js](http://www.ractivejs.org/)
+
+Special thanks to [James Halliday](http://substack.net/), [Rod Vagg](http://r.va.gg/), and [Rich Harris](http://www.rich-harris.co.uk/), who are fantastic people making the internet a better place to code.
+
+::contents.md::

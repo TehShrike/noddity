@@ -6,29 +6,30 @@ var numberOfOccurrances = require('./numberOfOccurrances.js')
 
 var converter = new Converter()
 
-module.exports = function Template(butler, linkify) {
+module.exports = function Template(butler, linkify, parentDataObject) {
 	var children = {}
 	var templateData = {}
+	var tornDown = {}
 
 	function createTemplateElements(ractive) {
 		ractive.findAll('.noddity-template').forEach(function(element) {
-			var postId = element.id
-			createRactivePost(element, postId)
+			createRactivePost(element, element.id)
 		})
 	}
 
 	function teardownChildren() {
-		Object.keys(children).map(function(id) {
-			return children[id]
-		}).forEach(function(ractive) {
+		Object.keys(children).forEach(function(id) {
+			var ractive = children[id]
 			ractive.teardown()
+			tornDown[id] = true
+			delete children[id]
 		})
 		children = {}
 		templateData = {}
 	}
 
 	function getTemplateDataObject(pieces) {
-		var dataz = {}
+		var dataz = Object.create(parentDataObject)
 		var unnamedParameters = 0
 
 		pieces.forEach(function(piece) {
@@ -59,11 +60,11 @@ module.exports = function Template(butler, linkify) {
 			} else {
 				var pieces = templateText.split('|')
 				var postName = pieces.shift(0)
-				var postId = toolbox.generateId(postName)
+				var elementId = toolbox.generateId(postName)
 
-				templateData[postId] = getTemplateDataObject(pieces)
+				templateData[elementId] = getTemplateDataObject(pieces)
 
-				return toolbox.generatePostDiv(postId)
+				return toolbox.generatePostDiv(elementId)
 			}
 		})
 	}
@@ -79,23 +80,23 @@ module.exports = function Template(butler, linkify) {
 		return html
 	}
 
-	function createRactivePost(element, postId) {
-		var postName = toolbox.getPostName(postId)
+	function createRactivePost(element, elementId) {
+		var postName = toolbox.getPostName(elementId)
 
 		butler.getPost(postName, function(err, post) {
 			if (err) {
 				doSomethingAboutThisError(err)
-			} else if (typeof templateData[postId] !== 'undefined') {
-				var templateManager = new Template(butler, linkify)
-				var html = processPost(post)
+			} else if (tornDown[elementId] !== true) {
+				var templateManager = new Template(butler, linkify, templateData[elementId])
+				var html = templateManager.processPost(post)
 
 				var ractive = new Ractive({
 					el: element,
 					template: html,
-					data: templateData[postId]
+					data: templateData[elementId]
 				})
 
-				children[postId] = ractive
+				children[elementId] = ractive
 				templateManager.createTemplateElements(ractive)
 				ractive.on('teardown', function onTeardown() {
 					templateManager.teardownChildren()

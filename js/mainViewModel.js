@@ -8,16 +8,15 @@ var converter = new Converter()
 
 module.exports = function MainViewModel(butler, linkify) {
 	var currentPostName = null
-	var templateManager = new Template(butler, linkify)
+	var data = Object.create(config)
+
+	data.posts= {}
+
+	var templateManager = new Template(butler, linkify, data)
 	var ractive = new Ractive({
 		el: 'body',
 		template: '#main',
-		data: {
-			posts: {},
-			logo: config.logo,
-			pagePathPrefix: config.pagePathPrefix,
-			editLink: config.editLink
-		},
+		data: data,
 		partials: {
 			post: postPartial
 		}
@@ -60,7 +59,15 @@ module.exports = function MainViewModel(butler, linkify) {
 	function getPost(key) {
 		butler.getPost(key, function(err, post) {
 			if (err) {
-				doSomethingAboutThisError(err)
+				if (key !== config.errorPage) {
+					window.location = window.location.origin
+						+ window.location.pathname
+						+ config.pathPrefix
+						+ config.pagePathPrefix
+						+ config.errorPage
+				} else {
+					doSomethingAboutThisError(err)
+				}
 			} else if (key === currentPostName) {
 				updatePostInView(post)
 			}
