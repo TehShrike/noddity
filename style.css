@@ -58,6 +58,26 @@ h1,h2,h3,h4,div.menu a {
 	font-family: "cantarellregular","Lucida Sans Unicode","Lucida Sans","Geneva","Verdana","sans-serif";
 }
 
+h1 {
+	font-size: 1.6em;
+}
+
+div.post-content > h1 {
+	font-size: 1.4em;
+}
+
+h2 {
+	font-size: 1.1em;
+}
+
+h3 {
+	font-size: 1em;
+}
+
+h4 {
+	font-size: .8em;
+}
+
 body {
 	font-family: "sinanova-regularregular","Georgia","Cambria","Times New Roman","Times","serif";
 	font-size: x-large;

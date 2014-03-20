@@ -1,9 +1,6 @@
 title: Contribute, licensing
 date: Fri Jan 27 2014 00:00:00 GMT+0000 (UTC)
 
-Contributing
---------
-
 Oh man, it would be awesome if you felt like helping out!
 
 If you ever try out Noddity as a blog-thing or a wiki-thing somewhere, or install it and poke out it, just tell me how it worked in your use case (or what broke, or what was dumb) and that would be sweet.
@@ -13,7 +10,7 @@ The [Github repo is over here](https://github.com/TehShrike/noddity) - if you sp
 If you have any features requests/restructuring that you think is in line with the spirit of the project, let me know, I would love feedback from other developers!  Ping me on Twitter at [TehShrike](https://twitter.com/TehShrike), or send me an email at <a href="mailty:me@JoshDuff.com">me@JoshDuff.com</a>.
 
 License
--------
+=======
 
 The Noddity web client, all of its code, and all of the modules that I wrote to support it are licensed by me, the copyright owner Josh Duff, under the [WTFPL](http://wtfpl2.com) license.
 

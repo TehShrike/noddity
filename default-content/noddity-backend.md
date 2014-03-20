@@ -4,7 +4,7 @@ date: Fri Jan 31 2014 00:00:00 GMT+0000 (UTC)
 Use this one strange tip to enlarge your internet blog!  I mean, uh, this page will tell you how to get those [markdown](http://daringfireball.net/projects/markdown/) files so that they start showing up to Noddity consumers.
 
 Wait, what's a Noddity consumer?
-------------
+===========
 
 The format of a Noddity server is really simple - it's just a path accessible by HTTP GET that contains
 
@@ -16,7 +16,7 @@ That's obviously a pretty simple API to access programatically.  Not so simple, 
 A Noddity consumer would be anything that access the raw blog data in this method.  Right now, that's just this blog framework thingy, and the RSS server I made.  But you could make any other kind of content-front-end that you wanted to - all you need to know is the root path of the content.
 
 Is there anything special about the JSON file?
-------------
+===========
 
 Nope, it's just your everyday array of strings.  So you might see a file at `http://belligerentgophers.com/content/index.json` containing
 
@@ -29,7 +29,7 @@ Nope, it's just your everyday array of strings.  So you might see a file at `htt
 There could be other files in that directory too - including files driving real content on the site.  Being in the JSON file just means that they'll show up in the timeline of "posts" made on the site, and are immediately discoverable to and cacheable by any consumer.  If there are files that aren't referenced in the JSON file, the consumer won't know about them unless, say, they're referenced in a template or link in another file.
 
 Is there anything special about the markdown file?
-------------
+===========
 
 Yeah, actually!  I added the ability to store metadata in the file.  The parsing out of the metadata is done by [the text-metadata-parser module](https://github.com/TehShrike/text-metadata-parser).  You put key-value pairs at the top of the file, and they get parsed out, like so:
 
@@ -44,7 +44,8 @@ You can put any other metadata there, though - tags, categories, author - anythi
 
 I'm using [PageDown](https://code.google.com/p/pagedown/wiki/PageDown) to parse markdown at the moment.  In addition, the client is also turning `[[some-page-you-want-to-link-to.md|wiki-style internal links]]` into [[some-page-you-want-to-link-to.md|wiki-style internal links]].
 
-###Templates
+Templates
+---------
 
 Templates are a really powerful feature of MediaWiki, and I wanted something like it.
 

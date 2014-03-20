@@ -2,14 +2,14 @@ title: The future of Noddity
 date: Fri Jan 28 2014 00:00:00 GMT+0000 (UTC)
 
 What won't happen
-----------
+=========
 
 I am not planning on adding a whole bunch of features to this client-side cms.  It would be cool if other [[noddity-backend.md|Noddity consumers]] started showing up, but this particular web frontend doesn't need to change for that to happen.
 
 One large feature would be search-engine-spider-friendliness - but that will be implemented in a different module, that will run out on some server indepedent of any Noddity clients.
 
 What might happen
-----------
+=========
 
 There will probably be *some* changes to give you a bit more leeway in making front-end changes.  Right now, if you want to change the layout or styling, you have to fork the repo and change the html/css files yourself.
 

@@ -4,7 +4,7 @@ date: Fri Jan 30 2014 00:00:00 GMT+0000 (UTC)
 So on the [[index.md|main intro page]] in the "distinctives" section I mentioned how my priorities were having all the code running in the browser, not having any build steps, and having cached content for super-fast page loads.  This is how that works!
 
 How content is loaded
---------
+========
 
 In the config.js file, there's a setting for `noddityRoot` - that's the path where Noddity will expect all content to be.  Obviously, whatever domain you're hosting your content on will need to be cool with XMLHttpRequests coming from whatever domain you're hosting the site code on.  (Don't want to have to worry about that stuff?  Put 'em on the same domain.)
 
@@ -17,7 +17,7 @@ The post list on the left is sorted by the date property from the metadata at th
 That sounds like it could be a lot of XMLHttpRequests to be making per-page load, but those requests really only happen on the first visit to the page.
 
 How content is cached
----------
+========
 
 All of the content access is done by the [noddity-butler](https://github.com/TehShrike/noddity-butler) module, which caches all content in a [LevelUP](https://github.com/rvagg/node-levelup) store.  The RSS server uses the same butler module - the main difference being that the RSS server is backed by an actual LevelDB store, while in the browser I'm just using the IndexedDB-backed [level.js](https://github.com/maxogden/level.js) (or [localstorage-down](https://github.com/No9/localstorage-down) in Safari, until [Apple gets off their ass](http://caniuse.com/#feat=indexeddb)).
 

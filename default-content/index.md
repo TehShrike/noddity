@@ -4,13 +4,15 @@ I wrote Noddity to replace the unnecessarily-heavy backend-centric framework tha
 
 Its purpose is to give me (and anyone else inclined to use it) an easy way to publish markdown-based content to a minimalist blog or wiki-type site.
 
-### Distinctives
+Distinctives
+========
 
 1. All the CMS magic is client-side - no server-side interpreter necessary, can deploy on vanilla Apache/Nginx/whatever
 2. No build step when you add or change content - the backend is a [noddity-backend.md|directory full of markdown files]
 3. Absurdly fast response time after initial pageload - the goal is to have all content cached locally so that displaying new pages is not waiting on any HTTP requests
 
-### Features
+Features
+========
 
 Those were my primary goals while writing this thing, but some of my other priorities soaked through too:
 
@@ -18,9 +20,10 @@ Those were my primary goals while writing this thing, but some of my other prior
 - [MediaWiki-style internal links](https://www.mediawiki.org/wiki/Help:Links#Internal_links)
 - [MediaWiki-style templates](https://www.mediawiki.org/wiki/Help:Templates), with parameters
 
-### Downsides
+Downsides
+-------
 
-#### No built-in RSS feed
+### No built-in RSS feed
 
 This is a side effect of wanting to be able to deploy new content on generic HTTP servers without any build step.
 
@@ -28,7 +31,8 @@ I won't deploy my blog without an RSS feed, though, so I [made a service](https:
 
 My goal is to have one of those RSS servers running, and have all of my content sites that need an RSS feed point people to that single server to get their feeds.
 
-### Not very spiderable by search engines
+Not very spiderable by search engines
+-------
 
 With both the rendering of pages and the routing being done client-side, it's not very SEO-friendly.
 
@@ -39,7 +43,7 @@ There are third-party solutions already available, like [BromBone](http://www.br
 Building a custom solution for Noddity (similar to the RSS hosting project) to take advantage of [ugly URL _escaped_fragment_ support](https://developers.google.com/webmasters/ajax-crawling/docs/specification) shouldn't actually be that difficult either, I just haven't gotten around to it yet.  SEO is less important to me than getting the site deployed and the RSS feed up, but I hope to get around to doing it right at some point.
 
 Who is it for?
----------
+=========
 
 Well, it's for me, obviously.  I'm planning on using it for all my personal sites where I would have previously used something like Wordpress or MediaWiki.
 
@@ -48,12 +52,12 @@ Buuuuut I figured there might be other people who would be interested in those s
 Even if it doesn't make sense for your own blog, if you want a light-weight wiki where people make contributions via something like Github as pull requests or merges (no more worrying about spam, or MediaWiki user privileges!) you may want to try it out.
 
 Tell me what you think!
----------
+=========
 
 [Hit me up on Twitter](https://twitter.com/TehShrike) or <a href="mailty:me@JoshDuff.com">send me an email</a>!  The Github repository is [right over here](https://github.com/TehShrike/noddity) and would love for strangers to touch it.
 
 Thanks
--------
+======
 
 Noddity relies very heavily on:
 
