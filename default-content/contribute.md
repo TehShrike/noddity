@@ -28,3 +28,5 @@ The Noddity web client, all of its code, and all of the modules that I wrote to 
 	  TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
 
 	0. You just DO WHAT THE FUCK YOU WANT TO.
+
+::contents.md::

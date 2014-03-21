@@ -24,3 +24,5 @@ There are lots of little things I'd like to do:
 - Make more of the front-end code testable.  Everything from noddity-butler on down has a pretty good range of tests, but the template stuff could really use some tests along with the requisite restructuring.
 - Make it so that the contents of templates are automatically updated if a new version appears, the same way the current main page does.  This will dependend on RactiveJS [gaining a new feature](https://twitter.com/RactiveJS/status/430134907424497664) where the [triple-stache](http://learn.ractivejs.org/triples-embedded-html/1/) could optionally evaluate its contents using the mustache syntax.  If this feature dropped, a lot of other janketiness associated with embedded templates could be removed.
 - I think there's still some maybe-broken stuff in mobile Safari?  Need to bite the bullet and go debug that at some point.
+
+::contents.md::
