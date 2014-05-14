@@ -1,14 +1,14 @@
 To install noddity:
 
-  git clone https://github.com/TehShrike/noddity.git
-  cd noddity
-  npm install
-  npm run build
+    git clone https://github.com/TehShrike/noddity.git
+    cd noddity
+    npm install
+    npm run build
 
 For that to work, you'll need to have installed node.js, browserify, and UglifyJS:
 
-  npm install -g browserify
-  npm install -g uglify-js
+    npm install -g browserify
+    npm install -g uglify-js
 
 Buuuuuut you probably don't have much interest in deploying copies of this web site. To display your own shenanigans, before you do the build in step 4, open up the config.js and change the title to be whatever you want, the noddityRoot to point at the path where you'll be deploying your markdown files, the editLink to reference your own repository (you can make it null/false if you don't want the link to show up), and change the logo to point at the path of your own cool image.
 
@@ -20,28 +20,28 @@ Create a new repo, call it `USERNAME.github.io`
 
 Clone that:
 
-  git clone https://github.com/USERNAME.github.io
+    git clone https://github.com/USERNAME.github.io
 
 Install and build noddity:
 
-  git clone https://github.com/TehShrike/noddity.git
-  cd noddity
-  npm install
-  npm run build
+    git clone https://github.com/TehShrike/noddity.git
+    cd noddity
+    npm install
+    npm run build
 
 Copy the noddity required files to your repo folder `USERNAME.github.io/` (don't copy the `default-content` folder):
 
-  font/*
-  js/*
-  index.html
-  logo.svg
-  style.css
-  build.js
+    font/*
+    js/*
+    index.html
+    logo.svg
+    style.css
+    build.js
 
 Create another repo that will hold your content, let's call it `blog-content`, and add that repo as a submodule to your `USERNAME.github.io` repo:
 
-  cd USERNAME.github.repo
-  git submodule add https://github.com/USERNAME/blog-content.git default-content
+    cd USERNAME.github.repo
+    git submodule add https://github.com/USERNAME/blog-content.git default-content
 
 Inside of your `blog-content` repo, make sure you have an `index.md` file and an `index.json` file that has an array.
 
