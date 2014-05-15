@@ -78,6 +78,14 @@ module.exports = function MainViewModel(butler, linkify) {
 		if (key === currentPostName) {
 			updatePostInView(newValue)
 		}
+
+		function titleHasChanged(postListItem) {
+			return postListItem.filename === key && postListItem.title !== newValue.metadata.title
+		}
+
+		if (ractive.get('postList').some(titleHasChanged)) {
+			getPostList()
+		}
 	}
 
 	butler.on('post changed', onPostChanged)

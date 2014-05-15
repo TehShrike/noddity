@@ -6,5 +6,5 @@ ExpiresByType application/javascript A3600
 ExpiresByType application/x-javascript A3600
 ExpiresByType text/javascript A3600
 ExpiresByType text/html A90
-ExpiresByType text/html A30
+ExpiresByType text/plain A10
 ExpiresByType text/css A3600
