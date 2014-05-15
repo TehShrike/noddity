@@ -19,7 +19,8 @@ var title = new Ractive({
 
 // Safari doesn't support indexedDB; have to use localstorage in that case
 var storage = window.indexedDB ? leveljs : function leveldownFactory(location) { return new Leveldown(location) }
-var butler = new Butler(config.noddityRoot, levelup('content', { db: storage }))
+var butlerOptions = config.debug ? { refreshEvery: 30 * 1000 } : undefined
+var butler = new Butler(config.noddityRoot, levelup('content', { db: storage }), butlerOptions)
 var linkify = new Linkifier(config.pathPrefix + config.pagePathPrefix)
 
 var model = new Model(butler, linkify)
@@ -39,4 +40,6 @@ router.on('current', function(key) {
 	})
 })
 
-window.debug = require('./js/debug.js')
+if (config.debug) {
+	window.debug = require('./js/debug.js')
+}

@@ -5,5 +5,6 @@ module.exports = {
 	logo: 'logo.svg',
 	errorPage: '404.md',
 	pathPrefix: '#!/',
-	pagePathPrefix: 'post/'
+	pagePathPrefix: 'post/',
+	debug: false
 }

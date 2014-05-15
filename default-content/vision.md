@@ -17,6 +17,7 @@ It's not like there are many files to sort through or anything, but I'd like to 
 
 There are lots of little things I'd like to do:
 
+- Have user interaction with a blog post cause it to be refreshed maybe?
 - Maybe make it so changing the config doesn't require a rebuild
 - Guarantee that any documents that were linked to via an internal link in the current page were cached
 - Automatically display the title of the target page instead of the file name when you link to `[[some-page.md]]`

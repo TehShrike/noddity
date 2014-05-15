@@ -10,7 +10,7 @@ module.exports = function MainViewModel(butler, linkify) {
 	var currentPostName = null
 	var data = Object.create(config)
 
-	data.posts= {}
+	data.posts = {}
 
 	var templateManager = new Template(butler, linkify, data)
 	var ractive = new Ractive({
@@ -81,9 +81,11 @@ module.exports = function MainViewModel(butler, linkify) {
 	}
 
 	butler.on('post changed', onPostChanged)
+	butler.on('index changed', getPostList)
 
 	ractive.on('teardown', function onTeardown() {
 		butler.removeListener('post changed', onPostChanged)
+		butler.removeListener('index changed', getPostList)
 		templateManager.teardownChildren()
 	})
 
