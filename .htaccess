@@ -22,5 +22,5 @@ ExpiresByType text/css A3600
 RewriteEngine On
 RewriteBase /blog/
 RewriteCond %{QUERY_STRING} ^_escaped_fragment_=/([^&]*/)([^&]*)
-RewriteRule .* "http://seo.rssaas.com/?noddityRoot=http://%{HTTP_HOST}%{REQUEST_URI}default-content/&linkRoot=http://%{HTTP_HOST}%{REQUEST_URI}#!/%1&post=%2"
+RewriteRule .* "http://seo.rssaas.com/?noddityRoot=http://%{HTTP_HOST}%{REQUEST_URI}default-content/&postUrlRoot=http://%{HTTP_HOST}%{REQUEST_URI}#!/%1&post=%2"
 </IfModule>
