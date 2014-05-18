@@ -1,3 +1,5 @@
+# made with help from: http://htaccess.madewithlove.be/
+
 AddOutputFilterByType DEFLATE text/html text/plain application/javascript text/css
 
 ExpiresActive On
@@ -8,3 +10,17 @@ ExpiresByType text/javascript A3600
 ExpiresByType text/html A90
 ExpiresByType text/plain A10
 ExpiresByType text/css A3600
+
+# Handle search engine static file stuff using github.com/TehShrike/seoaas
+#   * if you use a subdirectory, like "site.com/blog/" you'd change to "RewriteBase /blog/"
+#   * if you're running your own static generator site, change the domain in RewriteRule
+#   * if you've changed your config.js `pagePathPrefix` you'll need to change every instance
+#     of "post/" to your new prefix, e.g. "journal/" or whatever
+#   * if you're using your own content folder, say "my-content", you'll need to
+#     change "default-content" to "my-content"
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /blog/
+RewriteCond %{QUERY_STRING} ^_escaped_fragment_=/([^&]*/)([^&]*)
+RewriteRule .* "http://seo.rssaas.com/?noddityRoot=http://%{HTTP_HOST}%{REQUEST_URI}default-content/&linkRoot=http://%{HTTP_HOST}%{REQUEST_URI}#!/%1&post=%2"
+</IfModule>
