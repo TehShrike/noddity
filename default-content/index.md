@@ -8,7 +8,7 @@ Distinctives
 ========
 
 1. All the CMS magic is client-side - no server-side interpreter necessary, can deploy on vanilla Apache/Nginx/whatever
-2. No build step when you add or change content - the backend is a [noddity-backend.md|directory full of markdown files]
+2. No build step when you add or change content - the backend is a [[noddity-backend.md|directory full of markdown files]]
 3. Absurdly fast response time after initial pageload - the goal is to have all content cached locally so that displaying new pages is not waiting on any HTTP requests
 
 Features
