@@ -1,6 +1,6 @@
 {
   "name": "noddity",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "./index.js",
   "author": {
     "name": "TehShrike",
@@ -17,8 +17,8 @@
   },
   "scripts": {
     "test": "tap ./test/*.js",
-    "watch": "watchify noddity.js -o build.js -d",
-    "build": "browserify noddity.js | uglifyjs > build.js"
+    "watch": "watchify js/index.js -o js/build.js -d",
+    "build": "browserify js/index.js | uglifyjs > js/build.js"
   },
   "devDependencies": {
     "tap": "~0.4.4"

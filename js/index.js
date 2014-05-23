@@ -2,12 +2,11 @@ var Ractive = require('ractive')
 var Butler = require('noddity-butler')
 var levelup = require('levelup')
 var leveljs = require('level-js')
-var config = require('./config.js')
-var routing = require('./js/routing.js')
 var Linkifier = require('noddity-linkifier')
-var Model = require('./js/mainViewModel.js')
 var Leveldown = require('localstorage-down')
-
+var routing = require('./routing')
+var Model = require('./mainViewModel')
+var config = noddityConfig
 
 var title = new Ractive({
 	el: 'title',
@@ -41,5 +40,5 @@ router.on('current', function(key) {
 })
 
 if (config.debug) {
-	window.debug = require('./js/debug.js')
+	window.debug = require('./debug')
 }

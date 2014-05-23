@@ -2,7 +2,7 @@ var Ractive = require('ractive')
 var Converter = require('pagedown').Converter
 var Template = require('./template.js')
 var postPartial = require('./postPartial.js')
-var config = require('../config.js')
+var config = noddityConfig
 
 var converter = new Converter()
 
