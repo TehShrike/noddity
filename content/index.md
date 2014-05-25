@@ -23,29 +23,25 @@ Those were my primary goals while writing this thing, but some of my other prior
 Downsides
 -------
 
-### No built-in RSS feed
+The obvious downsides are a side effect of serving up markdown from the server and using a single-page app to render the on the client-side.  Without server-side code, you don't get an RSS feed or an easily-spiderable site for the search engine bots.
 
-This is a side effect of wanting to be able to deploy new content on generic HTTP servers without any build step.
+I wrote some seperate [[services.md|services]] to solve those issues.  They are designed to run as third-party webapps, running on their own servers.  You can deploy as many Noddity sites to static http file servers as you want without having to deploy any more of the rss/seo-friendly servers.
 
-I won't deploy my blog without an RSS feed, though, so I [made a service](https://github.com/TehShrike/rssaas) to serve up feeds for any blog using the Noddity backend (that directory full of markdown files).
+Indeed, I mean for my hosted versions to be publicly accessible for anyone running a Noddity site to share, so that they don't have to worry about hosting them.  I may have to work something else out if it starts to get crazy expensive, but that doesn't seem to be an immediate threat.
 
-My goal is to have one of those RSS servers running, and have all of my content sites that need an RSS feed point people to that single server to get their feeds.
+In the worst case, you can always deploy your own versions - the code is on Github and is easily deployable with [ploy](https://github.com/substack/ploy).  [[services.md|Check out the services page]] for more details.
 
-Not very spiderable by search engines
--------
+Other options for search-engine spiderability
+---------
 
-With both the rendering of pages and the routing being done client-side, it's not very SEO-friendly.
+There are other options to serve up static content for the search engine bots - my searches tearned up [BromBone](http://www.brombone.com/) and [seo4ajax](http://www.seo4ajax.com).
 
-It is possible to point search engine bots to static versions of the content.  I don't want the static-content-rendering to be built into the Noddity client framework (maintaining distinctive number 1, avoiding any server-side interpreter), but there are other ways to accomplish that.
-
-There are third-party solutions already available, like [BromBone](http://www.brombone.com/) or [seo4ajax](http://www.seo4ajax.com).
-
-Building a custom solution for Noddity (similar to the RSS hosting project) to take advantage of [ugly URL _escaped_fragment_ support](https://developers.google.com/webmasters/ajax-crawling/docs/specification) shouldn't actually be that difficult either, I just haven't gotten around to it yet.  SEO is less important to me than getting the site deployed and the RSS feed up, but I hope to get around to doing it right at some point.
+If most of your traffic comes from Google, it may not even matter - they recently announced that their spiders will be [executing JavaScript(http://googlewebmastercentral.blogspot.co.uk/2014/05/understanding-web-pages-better.html).
 
 Who is it for?
 =========
 
-Well, it's for me, obviously.  I'm planning on using it for all my personal sites where I would have previously used something like Wordpress or MediaWiki.
+Well, it's for me, obviously.  I'm planning on using it for all my personal sites where I would have previously used Wordpress or MediaWiki.
 
 Buuuuut I figured there might be other people who would be interested in those same features that I wanted, so here we are.
 
@@ -54,7 +50,7 @@ Even if it doesn't make sense for your own blog, if you want a light-weight wiki
 Tell me what you think!
 =========
 
-[Hit me up on Twitter](https://twitter.com/TehShrike) or <a href="mailty:me@JoshDuff.com">send me an email</a>!  The Github repository is [right over here](https://github.com/TehShrike/noddity) and would love for strangers to touch it.
+[Hit me up on Twitter](https://twitter.com/TehShrike) or <a href="mailto:me@JoshDuff.com">send me an email</a>!  The Github repository is [right over here](https://github.com/TehShrike/noddity) and would love for strangers to touch it.
 
 Thanks
 ======

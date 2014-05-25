@@ -1,22 +1,27 @@
-title: Install Noddity
+title: Installation
 date: Fri Jan 29 2014 00:00:00 GMT+0000 (UTC)
 
-Some day, there will be an automated build process that packages up nice little downloadable compressed packages and puts them somewhere publicly accessible!  That day is not today, though.
+To install Noddity, you'll need to use npm, sometimes known as the "Noddity Package Magnate".  npm is distributed with [node.js](http://nodejs.org/).
 
-To install this web site (the one you're looking at right now!):
+Use npm to download the Noddity installer by running `npm install -g noddity-installer` at your command prompt.
 
-1. `git clone https://github.com/TehShrike/noddity.git`
-2. `cd noddity`
-3. `npm install`
-4. `npm run build`
+Once it's installed, you can browse to any directory and run `noddity` to get a fresh noddity install.  The installer will download all of the dependencies from npm, build and minify the code, and deposit the results in the current directory.  If any of the files exist in that directory, they will not be overwritten.
 
-For that to work, you'll need to have installed [node.js](http://nodejs.org/download/), [browserify](https://github.com/substack/node-browserify), and [UglifyJS](https://github.com/mishoo/UglifyJS2):
+You'll want to make some changes to the config.js file to add your site title and some other settings, and you can uncomment the lines at the top of your index.html to enable the RSS feed or tell search spiders to try to download static versions of the posts.  The logo/fonts/css are yours to change as well, if you feel like it.
 
-- `npm install -g browserify`
-- `npm install -g uglify-js`
+Otherwise, you're ready to upload the site to your favorite http server.  If you want to change the content, adding new posts or editing old ones, there is no re-publishing step.  Just change the markdown files in the content directory.  You can change the config.js to point the content directory to a different location if you don't want it in the same directory as the Noddity installation.
 
-Buuuuuut you probably don't have much interest in deploying copies of this web site.  To display your own shenanigans, before you do the build in step 4, open up the config.js and change the title to be whatever you want, the noddityRoot to point at the path where you'll be deploying your markdown files, the editLink to reference your own repository (you can make it null/false if you don't want the link to show up), and change the logo to point at the path of your own cool image.
+Development install
+============
 
-Then you can do the build step, deploy somewhere, and then set up your own content.
+Playing with the Noddity code doesn't take much cooking.  First, assemble your ingredients:
+
+1 [node.js](http://nodejs.org/download/)
+1 [browserify](https://github.com/substack/node-browserify) via `npm install -g browserify`
+1 [UglifyJS](https://github.com/mishoo/UglifyJS2) via `npm install -g uglify-js`
+
+Fill a mixing directory with the current Noddity code by running `git clone https://github.com/TehShrike/noddity.git` and `npm install noddity` until the dependencies are sticking to the edge of the bowl.
+
+In the noddity directory, bake with `npm run build` for a minified center, or fry with `npm run watch` for your live changes to be reflected in the build file with debug information.
 
 ::contents.md::
