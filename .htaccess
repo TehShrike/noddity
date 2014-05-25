@@ -16,13 +16,11 @@ ExpiresByType text/css A3600
 #   * if you're running your own static generator site, change the domain in RewriteRule
 #   * if you've changed your config.js `pagePathPrefix` you'll need to change every instance
 #     of "post/" to your new prefix, e.g. "journal/" or whatever
-#   * if you're using your own content folder, say "my-content", you'll need to
-#     change "default-content" to "my-content"
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteBase /
 RewriteCond %{QUERY_STRING} ^_escaped_fragment_=([^&]*/)([^&/]*)
-RewriteRule .* "http://seo.rssaas.com/?noddityRoot=http://%{HTTP_HOST}%{REQUEST_URI}default-content/&postUrlRoot=http://%{HTTP_HOST}%{REQUEST_URI}#!%1&post=%2"
+RewriteRule .* "http://seo.rssaas.com/?noddityRoot=http://%{HTTP_HOST}%{REQUEST_URI}content/&postUrlRoot=http://%{HTTP_HOST}%{REQUEST_URI}#!%1&post=%2"
 RewriteCond %{QUERY_STRING} ^_escaped_fragment_=([^&]*)$
-RewriteRule .* "http://seo.rssaas.com/?noddityRoot=http://%{HTTP_HOST}%{REQUEST_URI}default-content/&postUrlRoot=http://%{HTTP_HOST}%{REQUEST_URI}#!&post=%1"
+RewriteRule .* "http://seo.rssaas.com/?noddityRoot=http://%{HTTP_HOST}%{REQUEST_URI}content/&postUrlRoot=http://%{HTTP_HOST}%{REQUEST_URI}#!&post=%1"
 </IfModule>

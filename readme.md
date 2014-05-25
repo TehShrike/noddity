@@ -29,7 +29,7 @@ Install and build noddity:
     npm install
     npm run build
 
-Copy the noddity required files to your repo folder `USERNAME.github.io/` (don't copy the `default-content` folder):
+Copy the noddity required files to your repo folder `USERNAME.github.io/` (don't copy the `content` folder):
 
     font/*
     js/*
@@ -41,7 +41,7 @@ Copy the noddity required files to your repo folder `USERNAME.github.io/` (don't
 Create another repo that will hold your content, let's call it `blog-content`, and add that repo as a submodule to your `USERNAME.github.io` repo:
 
     cd USERNAME.github.repo
-    git submodule add https://github.com/USERNAME/blog-content.git default-content
+    git submodule add https://github.com/USERNAME/blog-content.git content
 
 Inside of your `blog-content` repo, make sure you have an `index.md` file and an `index.json` file that has an array.
 
