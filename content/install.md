@@ -1,7 +1,7 @@
 title: Installation
 date: Fri Jan 29 2014 00:00:00 GMT+0000 (UTC)
 
-To install Noddity, you'll need to use npm, sometimes known as the "Noddity Package Magnate".  npm is distributed with [node.js](http://nodejs.org/).
+To install Noddity, you'll want to use npm, sometimes known as the "Noddity Package Magnate".  npm is distributed with [node.js](http://nodejs.org/).
 
 Use npm to download the Noddity installer by running `npm install -g noddity-installer` at your command prompt.
 
@@ -16,9 +16,9 @@ Development install
 
 Playing with the Noddity code doesn't take much cooking.  First, assemble your ingredients:
 
-1 [node.js](http://nodejs.org/download/)
-1 [browserify](https://github.com/substack/node-browserify) via `npm install -g browserify`
-1 [UglifyJS](https://github.com/mishoo/UglifyJS2) via `npm install -g uglify-js`
+- 1 [node.js](http://nodejs.org/download/)
+- 1 [browserify](https://github.com/substack/node-browserify) via `npm install -g browserify`
+- 1 [UglifyJS](https://github.com/mishoo/UglifyJS2) via `npm install -g uglify-js`
 
 Fill a mixing directory with the current Noddity code by running `git clone https://github.com/TehShrike/noddity.git` and `npm install noddity` until the dependencies are sticking to the edge of the bowl.
 

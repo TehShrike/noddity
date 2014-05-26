@@ -36,7 +36,7 @@ Other options for search-engine spiderability
 
 There are other options to serve up static content for the search engine bots - my searches tearned up [BromBone](http://www.brombone.com/) and [seo4ajax](http://www.seo4ajax.com).
 
-If most of your traffic comes from Google, it may not even matter - they recently announced that their spiders will be [executing JavaScript(http://googlewebmastercentral.blogspot.co.uk/2014/05/understanding-web-pages-better.html).
+If most of your traffic comes from Google, it may not even matter - they recently announced that their spiders will be [executing JavaScript](http://googlewebmastercentral.blogspot.co.uk/2014/05/understanding-web-pages-better.html).
 
 Who is it for?
 =========
