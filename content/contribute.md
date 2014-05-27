@@ -7,7 +7,7 @@ If you ever try out Noddity as a blog-thing or a wiki-thing somewhere, or instal
 
 The [Github repo is over here](https://github.com/TehShrike/noddity) - if you spot any bugs, you can make a pull request if you feel so inclined, or even just [report the issue](https://github.com/TehShrike/noddity/issues) so that I know about it.
 
-If you have any features requests/restructuring that you think is in line with the spirit of the project, let me know, I would love feedback from other developers!  Ping me on Twitter at [TehShrike](https://twitter.com/TehShrike), or send me an email at <a href="mailty:me@JoshDuff.com">me@JoshDuff.com</a>.
+If you have any features requests/restructuring that you think is in line with the spirit of the project, let me know, I would love feedback from other developers!  Ping me on Twitter at [TehShrike](https://twitter.com/TehShrike), or send me an email at <a href="mailto:me@JoshDuff.com">me@JoshDuff.com</a>.
 
 License
 =======
