@@ -19,8 +19,6 @@ ExpiresByType text/css A3600
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteBase /
-RewriteCond %{QUERY_STRING} ^_escaped_fragment_=([^&]*/)([^&/]*)
-RewriteRule .* "http://seo.noddityaas.com/?noddityRoot=http://%{HTTP_HOST}%{REQUEST_URI}content/&postUrlRoot=http://%{HTTP_HOST}%{REQUEST_URI}#!%1&post=%2"
-RewriteCond %{QUERY_STRING} ^_escaped_fragment_=([^&]*)$
-RewriteRule .* "http://seo.noddityaas.com/?noddityRoot=http://%{HTTP_HOST}%{REQUEST_URI}content/&postUrlRoot=http://%{HTTP_HOST}%{REQUEST_URI}#!&post=%1"
+RewriteCond %{QUERY_STRING} ^_escaped_fragment_=(?:[^&]*/)?([^&/]*)
+RewriteRule .* "http://seo.noddityaas.com/?noddityRoot=http://%{HTTP_HOST}%{REQUEST_URI}content/&postUrlRoot=http://%{HTTP_HOST}%{REQUEST_URI}#!/post/&post=%1"
 </IfModule>

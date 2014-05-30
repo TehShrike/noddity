@@ -59,6 +59,12 @@ Inside the templates, though, you don't reference the arguments in the same way 
 
 For a live example, check out this brilliantly-named "month" template: `::month|1::` turns into "::month|1::" and `::month|8::` turns into "::month|8::"!
 
+	title: Month name
+	markdown: false
+
+	{{ ['January','February','March','April','May','June','July','August','September','October','November','December'][this.1 - 1] }}
+
+
 For that particular example, I added `markdown: false` to the metadata at the top of the file.  Doing this prevents the template from being parsed as markdown, which among other things, means that the content won't be wrapped in a `<p>` tag.
 
 I know the colon-based syntax is kind of weird.  I'm open to suggestions, but it's hard to find some syntax that doesn't collide with either the mustache syntax, markdown, or html.

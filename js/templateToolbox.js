@@ -1,5 +1,3 @@
-var Ractive = require('ractive')
-
 var rgxPostDivId = /noddity_post_(.+)_[\da-z]{12}4[\da-z]{19}/
 
 function UUIDv4() {
