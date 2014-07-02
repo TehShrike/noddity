@@ -2,8 +2,10 @@ var Ractive = require('ractive')
 var config = noddityConfig
 var Renderer = require('noddity-renderer')
 
-module.exports = function MainViewModel(butler, linkify) {
-	var renderer = new Renderer(butler, linkify)
+function noop() {}
+
+module.exports = function MainViewModel(butler, linkifyEmitter) {
+	var renderer = new Renderer(butler, linkifyEmitter.linkify)
 	var data = Object.create(config)
 	var changePostInRactive = null
 
@@ -18,13 +20,13 @@ module.exports = function MainViewModel(butler, linkify) {
 	var mainRactive = new Ractive({
 		el: 'main',
 		template: '#template-main',
-		data: config
+		data: data
 	})
 
 	var menuRactive = new Ractive({
 		el: 'menu',
 		template: '#template-menu',
-		data: config
+		data: data
 	})
 
 	function doSomethingAboutThisError(err) {
@@ -76,6 +78,10 @@ module.exports = function MainViewModel(butler, linkify) {
 			}
 		})
 	}
+
+	linkifyEmitter.on('link', function(pageName) {
+		butler.getPost(pageName, noop)
+	})
 
 	function onPostChanged(key, newValue, oldValue) {
 		function titleHasChanged(postListItem) {

@@ -15,10 +15,9 @@ It's not like there are many files to sort through or anything, but I'd like to 
 
 There are lots of little things I'd like to do:
 
-- Guarantee that any documents referenced in an internal link in the current page are preloaded/cached
 - Automatically display the title of the target page instead of the file name when you link to `[[some-page.md]]`
-- Make more of the front-end code testable.  Everything from noddity-butler on down has a pretty good range of tests, but the template stuff could really use some tests along with the requisite restructuring.
-- Make it so that the contents of templates are automatically updated if a new version appears, the same way the current main page does.  This would be a easier if RactiveJS [gained a new feature](https://twitter.com/RactiveJS/status/430134907424497664) where the [triple-stache](http://learn.ractivejs.org/triples-embedded-html/1/) could optionally evaluate its contents using the mustache syntax.  I think it's doable without that feature, it will just take some thoughtful restructuring.
+- Add more tests for the template/rendering code.  Everything from noddity-butler on down has a pretty good range of tests, but the template stuff could really use some tests.  Check out [noddity-renderer](https://github.com/TehShrike/noddity-renderer) if you're interested.
+- Probably should look at parsing links/templates by using [markdown-js](https://github.com/evilstreak/markdown-js) and working with documents in one of its intermediate states, instead of using regular expressions on the whole document.
 - Some issue with the logo not appearing in mobile Safari?  Need to bite the bullet and go debug that at some point.
 - Consider having user interaction with a blog post cause it to be refreshed from the server maybe?
 

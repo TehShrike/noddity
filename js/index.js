@@ -11,9 +11,9 @@ var config = noddityConfig
 var storage = window.indexedDB ? leveljs : function leveldownFactory(location) { return new Leveldown(location) }
 var butlerOptions = config.debug ? { refreshEvery: 30 * 1000 } : undefined
 var butler = new Butler(config.noddityRoot, levelup('content', { db: storage }), butlerOptions)
-var linkify = new Linkifier(config.pathPrefix + config.pagePathPrefix)
+var linkifyEmitter = new Linkifier(config.pathPrefix + config.pagePathPrefix)
 
-var model = new Model(butler, linkify)
+var model = new Model(butler, linkifyEmitter)
 
 var router = routing()
 
