@@ -1,27 +1,31 @@
 var Ractive = require('ractive')
-var Converter = require('pagedown').Converter
-var Template = require('./template.js')
-var postPartial = require('./postPartial.js')
 var config = noddityConfig
-
-var converter = new Converter()
+var Renderer = require('noddity-renderer')
 
 module.exports = function MainViewModel(butler, linkify) {
-	var currentPostName = null
+	var renderer = new Renderer(butler, linkify)
 	var data = Object.create(config)
+	var changePostInRactive = null
 
-	data.posts = {}
-
-	var templateManager = new Template(butler, linkify, data)
-	var ractive = new Ractive({
-		el: 'body',
-		template: '#main',
-		data: data,
-		partials: {
-			post: postPartial
+	var titleRactive = new Ractive({
+		el: 'title',
+		template: '{{title}}{{#page}} | {{page}}{{/page}}',
+		data: {
+			title: config.title
 		}
 	})
 
+	var mainRactive = new Ractive({
+		el: 'main',
+		template: '#template-main',
+		data: config
+	})
+
+	var menuRactive = new Ractive({
+		el: 'menu',
+		template: '#template-menu',
+		data: config
+	})
 
 	function doSomethingAboutThisError(err) {
 		console.log(err)
@@ -30,7 +34,7 @@ module.exports = function MainViewModel(butler, linkify) {
 	function getPostList() {
 		butler.getPosts(function(err, posts) {
 			if (!err) {
-				ractive.set('postList', posts.reverse().filter(function(post) {
+				menuRactive.set('postList', posts.reverse().filter(function(post) {
 					return typeof post.metadata.title === 'string'
 				}).map(function(post) {
 					return {
@@ -44,46 +48,41 @@ module.exports = function MainViewModel(butler, linkify) {
 		})
 	}
 
-	function updatePostInView(post) {
-		post.html = templateManager.processPost(post)
-		ractive.set('currentPost', post)
-		templateManager.createTemplateElements(ractive)
-
-		// Waiting until the current post is displayed before fetching the list of posts
-		if (ractive.get('postList') === undefined) {
-			getPostList()
-		}
-	}
-
-
-	function getPost(key) {
+	function changeCurrentPost(key) {
 		butler.getPost(key, function(err, post) {
 			if (err) {
+				mainRactive.set('html', err.message)
+				titleRactive.set('page', null)
+
 				if (key !== config.errorPage) {
 					window.location = window.location.origin
 						+ window.location.pathname
 						+ config.pathPrefix
 						+ config.pagePathPrefix
 						+ config.errorPage
-				} else {
-					doSomethingAboutThisError(err)
 				}
-			} else if (key === currentPostName) {
-				updatePostInView(post)
+			} else {
+				titleRactive.set('page', post.metadata.title)
+
+				if (changePostInRactive) {
+					changePostInRactive(post)
+				} else {
+					changePostInRactive = renderer.populateRootRactive(post, mainRactive)
+				}
+
+				if (!menuRactive.get('postList')) {
+					getPostList()
+				}
 			}
 		})
 	}
 
 	function onPostChanged(key, newValue, oldValue) {
-		if (key === currentPostName) {
-			updatePostInView(newValue)
-		}
-
 		function titleHasChanged(postListItem) {
 			return postListItem.filename === key && postListItem.title !== newValue.metadata.title
 		}
 
-		var postList = ractive.get('postList')
+		var postList = titleRactive.get('postList')
 		if (postList && postList.some(titleHasChanged)) {
 			getPostList()
 		}
@@ -91,19 +90,6 @@ module.exports = function MainViewModel(butler, linkify) {
 
 	butler.on('post changed', onPostChanged)
 	butler.on('index changed', getPostList)
-
-	ractive.on('teardown', function onTeardown() {
-		butler.removeListener('post changed', onPostChanged)
-		butler.removeListener('index changed', getPostList)
-		templateManager.teardownChildren()
-	})
-
-	function changeCurrentPost(key) {
-		ractive.set('current', key)
-		templateManager.teardownChildren()
-		currentPostName = key
-		getPost(key)
-	}
 
 	return {
 		setCurrent: changeCurrentPost

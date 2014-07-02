@@ -1,4 +1,3 @@
-var Ractive = require('ractive')
 var Butler = require('noddity-butler')
 var levelup = require('levelup')
 var leveljs = require('level-js')
@@ -7,14 +6,6 @@ var Leveldown = require('localstorage-down')
 var routing = require('./routing')
 var Model = require('./mainViewModel')
 var config = noddityConfig
-
-var title = new Ractive({
-	el: 'title',
-	template: '{{title}}{{#page}} | {{page}}{{/page}}',
-	data: {
-		title: config.title
-	}
-})
 
 // Safari doesn't support indexedDB; have to use localstorage in that case
 var storage = window.indexedDB ? leveljs : function leveldownFactory(location) { return new Leveldown(location) }
@@ -26,18 +17,7 @@ var model = new Model(butler, linkify)
 
 var router = routing()
 
-router.on('current', function(key) {
-	model.setCurrent(key)
-
-	butler.getPost(key, function(err, post) {
-		if (!err) {
-			title.set('page', post.metadata.title)
-		} else {
-			title.set('page', null)
-			console.log(err)
-		}
-	})
-})
+router.on('current', model.setCurrent)
 
 if (config.debug) {
 	window.debug = require('./debug')

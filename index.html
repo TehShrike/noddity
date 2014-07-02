@@ -44,32 +44,36 @@
 </head>
 
 <body>
+<div id="menu"></div>
+<div id="main"></div>
 
-<script id='main' type="text/ractive">
+<script id='template-menu' type="text/ractive">
+	<a href="{{pathPrefix}}">
+		<img class="logo" src="{{logo}}" />
+	</a>
 
-	<div class="menu">
-		<a href="{{pathPrefix}}">
-			<img class="logo" src="{{logo}}" />
-		</a>
+	<div>
+		<h3>Posts</h3>
+		<ol>
+			{{#postList}}
+				<li><a href="{{pathPrefix}}{{pagePathPrefix}}{{filename}}">{{title}}</a></li>
+			{{/postList}}
+		</ol>
+	</div>
+</script>
+<script id="template-main" type="text/ractive">
 
+	{{#editLink}}<div id="edit-post-link"><a href="{{editLink}}{{current}}">Edit this post</a></div>{{/editLink}}
+	<article>
 		<div>
-			<h3>Posts</h3>
-			<ol>
-				{{#postList}}
-					<li><a href="{{pathPrefix}}{{pagePathPrefix}}{{filename}}">{{title}}</a></li>
-				{{/postList}}
-			</ol>
+			{{#metadata.title}}
+				<h1>{{metadata.title}}</h1>
+			{{/metadata.title}}
+			<div class="post-content">
+				{{{html}}}
+			</div>
 		</div>
-	</div>
-
-	<div class="main">
-		{{#editLink}}<div id="edit-post-link"><a href="{{editLink}}{{current}}">Edit this post</a></div>{{/editLink}}
-		<article>
-			{{#currentPost}}
-				{{>post}}
-			{{/currentPost}}
-		</article>
-	</div>
+	</article>
 
 </script>
 

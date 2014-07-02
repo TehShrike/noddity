@@ -24,12 +24,13 @@
     "tap": "~0.4.4"
   },
   "dependencies": {
-    "noddity-butler": "^1.0.0",
     "level-js": "~1.0.8",
     "levelup": "~0.18.2",
-    "ractive": "~0.3.9",
-    "pagedown": "~1.1.0",
     "localstorage-down": "~0.4.0",
-    "noddity-linkifier": "~1.0.0"
+    "noddity-butler": "^1.0.0",
+    "noddity-linkifier": "~1.0.0",
+    "noddity-renderer": "^2.0.0",
+    "pagedown": "~1.1.0",
+    "ractive": "~0.3.9"
   }
 }
