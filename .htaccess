@@ -7,6 +7,7 @@ ExpiresDefault "access plus 4 hours"
 ExpiresByType application/javascript A3600
 ExpiresByType application/x-javascript A3600
 ExpiresByType text/javascript A3600
+ExpiresByType application/json A5
 ExpiresByType text/html A90
 ExpiresByType text/plain A10
 ExpiresByType text/css A3600
