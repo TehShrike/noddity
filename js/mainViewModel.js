@@ -88,7 +88,7 @@ module.exports = function MainViewModel(butler, linkifyEmitter) {
 			return postListItem.filename === key && postListItem.title !== newValue.metadata.title
 		}
 
-		var postList = titleRactive.get('postList')
+		var postList = menuRactive.get('postList')
 		if (postList && postList.some(titleHasChanged)) {
 			getPostList()
 		}
