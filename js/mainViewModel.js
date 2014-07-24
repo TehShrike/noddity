@@ -23,11 +23,23 @@ module.exports = function MainViewModel(butler, linkifyEmitter) {
 		data: data
 	})
 
-	var menuRactive = new Ractive({
-		el: 'menu',
-		template: '#template-menu',
+	var sidebarTemplate = config.sidebar ? '{{{html}}}' : '#template-menu'
+
+	var sidebarRactive = new Ractive({
+		el: 'sidebar',
+		template: sidebarTemplate,
 		data: data
 	})
+
+	if (config.sidebar) {
+		butler.getPost(config.sidebar, function(err, post) {
+			if (err) {
+				sidebarRactive.set('html', err.message)
+			} else {
+				renderer.populateRootRactive(post, sidebarRactive)
+			}
+		})
+	}
 
 	function doSomethingAboutThisError(err) {
 		console.log(err)
@@ -36,7 +48,7 @@ module.exports = function MainViewModel(butler, linkifyEmitter) {
 	function getPostList() {
 		butler.getPosts(function(err, posts) {
 			if (!err) {
-				menuRactive.set('postList', posts.reverse().filter(function(post) {
+				sidebarRactive.set('postList', posts.reverse().filter(function(post) {
 					return typeof post.metadata.title === 'string'
 				}).map(function(post) {
 					return {
@@ -72,7 +84,7 @@ module.exports = function MainViewModel(butler, linkifyEmitter) {
 					changePostInRactive = renderer.populateRootRactive(post, mainRactive)
 				}
 
-				if (!menuRactive.get('postList')) {
+				if (!sidebarRactive.get('postList')) {
 					getPostList()
 				}
 			}
@@ -88,7 +100,7 @@ module.exports = function MainViewModel(butler, linkifyEmitter) {
 			return postListItem.filename === key && postListItem.title !== newValue.metadata.title
 		}
 
-		var postList = menuRactive.get('postList')
+		var postList = sidebarRactive.get('postList')
 		if (postList && postList.some(titleHasChanged)) {
 			getPostList()
 		}
