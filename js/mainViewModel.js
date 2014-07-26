@@ -6,7 +6,6 @@ function noop() {}
 
 module.exports = function MainViewModel(butler, linkifyEmitter) {
 	var renderer = new Renderer(butler, linkifyEmitter.linkify)
-	var data = Object.create(config)
 	var changePostInRactive = null
 
 	var titleRactive = new Ractive({
@@ -20,7 +19,7 @@ module.exports = function MainViewModel(butler, linkifyEmitter) {
 	var mainRactive = new Ractive({
 		el: 'main',
 		template: '#template-main',
-		data: data
+		data: Object.create(config)
 	})
 
 	var sidebarTemplate = config.sidebar ? '{{{html}}}' : '#template-menu'
@@ -28,7 +27,7 @@ module.exports = function MainViewModel(butler, linkifyEmitter) {
 	var sidebarRactive = new Ractive({
 		el: 'sidebar',
 		template: sidebarTemplate,
-		data: data
+		data: Object.create(config)
 	})
 
 	if (config.sidebar) {
