@@ -1,6 +1,6 @@
 {
   "name": "noddity",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "main": "./index.js",
   "author": {
     "name": "TehShrike",
@@ -32,6 +32,7 @@
     "noddity-linkifier": "~2.0.0",
     "noddity-renderer": "^2.0.0",
     "pagedown": "~1.1.0",
-    "ractive": "~0.5.0"
+    "ractive": "~0.5.0",
+    "bowser": "~0.7.1"
   }
 }
