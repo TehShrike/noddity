@@ -1,7 +1,15 @@
 title: Installation
 date: Fri Jan 29 2014 00:00:00 GMT+0000 (UTC)
 
-To install Noddity, you'll want to use npm, sometimes known as the "Noddity Package Magnate".  npm is distributed with [node.js](http://nodejs.org/).
+Github Pages
+=========
+
+To use your own Github Pages hosted version of Noddity, simply go to the [gh-pages branch of the noddity repository](https://github.com/TehShrike/noddity/tree/gh-pages) and create your own fork.  Edit the config.js file, put your own markdown files in the content directory, and you're good to go.
+
+On your own static file server
+==========
+
+To install the static html and Javascript that make up Noddity, you'll want to use npm, sometimes known as the "Noddity Package Magnate".  npm is distributed with [node.js](http://nodejs.org/).
 
 Use npm to download the Noddity installer by running `npm install -g noddity-installer` at your command prompt.
 
