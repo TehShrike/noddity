@@ -1,6 +1,6 @@
 {
   "name": "noddity",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "main": "./index.js",
   "author": {
     "name": "TehShrike",
@@ -24,7 +24,6 @@
     "tap": "~0.4.4"
   },
   "dependencies": {
-    "level-js": "~1.0.8",
     "level-sublevel": "~5.2.0",
     "levelup": "~0.18.2",
     "localstorage-down": "~0.4.0",
@@ -32,7 +31,6 @@
     "noddity-linkifier": "~2.0.0",
     "noddity-renderer": "^2.0.0",
     "pagedown": "~1.1.0",
-    "ractive": "~0.5.0",
-    "bowser": "~0.7.1"
+    "ractive": "~0.5.0"
   }
 }
