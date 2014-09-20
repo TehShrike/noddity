@@ -67,10 +67,6 @@ There are two parameters in the query string, and they both correspond to their 
 - postUrlRoot - the [[noddity-backend.md|Noddity root path]].  Should correspond to the the noddityRoot in your config.js.  (Octothorpes must be encoded as %23)
 - postRootUrl - the services uses this to link your posts back to your site.  This should be whatever you see in the url of your site before the current post's file name.
 
-The service isn't perfect at the moment - the html it generates is not equal to the html that is generated on the client-side, mostly because my current implementation of embedding templates relies on the DOM.
-
-For this reason, if your posts contain the wiki-style embedded templates, they will not show up in the static version rendered by seoaas at the moment. :-(
-
-I'm planning on fixing that in a future refactoring, though.  Let me know if you're interested in helping!
+seoaas uses [noddity-renderer](https://github.com/TehShrike/noddity-renderer), just like Noddity - while their use cases vary a good bit (check out that code, srsly) the server should render the same html as you would see in the dom browsing a Noddity site.
 
 ::contents.md::
