@@ -34,8 +34,30 @@ body {
 	list-style-type: none;
 }
 
+@font-face {
+	font-family: 'sinanova-regularregular';
+	src: url('font/sinanova_regular_macroman/SinaNovaReg-webfont.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'cantarellregular';
+	src: url('font/cantarell_regular_macroman/Cantarell-Regular-webfont.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
 h1,h2,h3,h4,#sidebar a {
 	font-family: "Lucida Sans Unicode","Lucida Sans","Geneva","Verdana","sans-serif";
+}
+
+.web-font-loaded h1,
+.web-font-loaded h2,
+.web-font-loaded h3,
+.web-font-loaded h4,
+.web-font-loaded #sidebar a {
+	font-family: "cantarellregular","Lucida Sans Unicode","Lucida Sans","Geneva","Verdana","sans-serif";
 }
 
 h1 {
@@ -61,6 +83,10 @@ h4 {
 body {
 	font-family: "Georgia","Cambria","Times New Roman","Times","serif";
 	font-size: x-large;
+}
+
+body.web-font-loaded {
+	font-family: "sinanova-regularregular","Georgia","Cambria","Times New Roman","Times","serif";
 }
 
 img.logo {

@@ -5,6 +5,7 @@ var Leveldown = require('localstorage-down')
 var routing = require('./routing')
 var Model = require('./mainViewModel')
 var Sublevel = require('level-sublevel')
+var fontLoader = require('./fontLoader')
 var config = noddityConfig
 
 var storage = function leveldownFactory(location) { return new Leveldown(location) }
@@ -27,3 +28,15 @@ router.on('current', model.setCurrent)
 if (config.debug) {
 	window.debug = require('./debug')
 }
+
+fontLoader([
+	window.location.pathname + 'font/cantarell_regular_macroman/Cantarell-Regular-webfont.woff',
+	window.location.pathname + 'font/sinanova_regular_macroman/SinaNovaReg-webfont.woff'
+], function() {
+	var bodyClass = 'web-font-loaded'
+	if (window.document.body.className.length > 0) {
+		window.document.body.className += bodyClass
+	} else {
+		window.document.body.className = bodyClass
+	}
+})
