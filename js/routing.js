@@ -5,14 +5,14 @@ module.exports = function() {
 	var emitter = new EventEmitter()
 
 	var satnav = Satnav({}).navigate({
-		path: '!/' + config.pagePathPrefix + '{name}',
-		directions: function(params) {
-			emitter.emit('current', params.name)
-		}
-	}).navigate({
 		path: '!/',
 		directions: function(params) {
 			emitter.emit('current', 'index.md')
+		}
+	}).navigate({
+		path: '!/' + config.pagePathPrefix + '{name}',
+		directions: function(params) {
+			emitter.emit('current', params.name)
 		}
 	}).navigate({
 		path: '',
