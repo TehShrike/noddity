@@ -9,7 +9,7 @@ var config = noddityConfig
 
 var storage = function leveldownFactory(location) { return new Leveldown(location) }
 
-var db = Sublevel(levelup('noddity-content', { db: storage }))
+var db = Sublevel(levelup('noddity-content-2', { db: storage }))
 var normalizedSublevelName = config.title.replace(/[^\w]+/g, '')
 
 
