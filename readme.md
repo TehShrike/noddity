@@ -8,3 +8,5 @@ If you're using Noddity as a wiki, bear in mind that the client caches all conte
 
 If you have any questions at all, or any comments, email <me@JoshDuff.com> or hit up [TehShrike](https://twitter.com/TehShrike) on Twitter.
 
+
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/TehShrike/noddity?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
