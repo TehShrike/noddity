@@ -12,6 +12,13 @@ ExpiresByType text/html A90
 ExpiresByType text/plain A10
 ExpiresByType text/css A3600
 
+<ifmodule mod_expires.c>
+  <filesmatch "\.(md|json)$">
+       ExpiresActive on
+       ExpiresDefault A10
+   </filesmatch>
+</ifmodule>
+
 # Handle search engine static file stuff using github.com/TehShrike/seoaas
 #   * if you use a subdirectory, like "site.com/blog/" you'd change to "RewriteBase /blog/"
 #   * if you're running your own static generator site, change the domain in RewriteRule

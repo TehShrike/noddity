@@ -88,6 +88,7 @@ module.exports = function MainViewModel(butler, linkifyEmitter) {
 				}
 			}
 		})
+		butler.refreshPost(key)
 	}
 
 	linkifyEmitter.on('link', function(pageName) {
