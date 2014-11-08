@@ -13,7 +13,7 @@ var db = Sublevel(levelup('noddity-content-2', { db: storage }))
 var normalizedSublevelName = config.title.replace(/[^\w]+/g, '')
 
 
-var butlerOptions = config.debug ? { refreshEvery: 30 * 1000 } : undefined
+var butlerOptions = config.debug ? { refreshEvery: 30 * 1000 } : { cacheCheckIntervalMs: 60 * 1000 }
 var butler = new Butler(config.noddityRoot, db.sublevel(normalizedSublevelName), butlerOptions)
 
 var linkifyEmitter = new Linkifier(config.pathPrefix + config.pagePathPrefix)
