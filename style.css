@@ -60,7 +60,7 @@ h4 {
 
 body {
 	font-family: "sina_novaregular", "Georgia","Cambria","Times New Roman","Times","serif";
-	font-size: x-large;
+	font-size: 1.3em;
 }
 
 img.logo {
@@ -93,6 +93,7 @@ blockquote {
 	margin: 10px 20px;
 }
 
-code {
+code, pre {
 	font-family: "Monaco","Courier","monospace";
+	font-size: .8em;
 }
