@@ -4,7 +4,7 @@ var Renderer = require('noddity-renderer')
 
 function noop() {}
 
-module.exports = function MainViewModel(butler, linkifyEmitter) {
+module.exports = function MainViewModel(butler, linkifyEmitter, routingEmitter) {
 	var renderer = new Renderer(butler, linkifyEmitter.linkify)
 	var changePostInRactive = null
 
@@ -68,11 +68,7 @@ module.exports = function MainViewModel(butler, linkifyEmitter) {
 				titleRactive.set('page', null)
 
 				if (key !== config.errorPage) {
-					window.location = window.location.origin
-						+ window.location.pathname
-						+ config.pathPrefix
-						+ config.pagePathPrefix
-						+ config.errorPage
+					routingEmitter.emit('404')
 				}
 			} else {
 				titleRactive.set('page', post.metadata.title)
@@ -109,7 +105,5 @@ module.exports = function MainViewModel(butler, linkifyEmitter) {
 	butler.on('post changed', onPostChanged)
 	butler.on('index changed', getPostList)
 
-	return {
-		setCurrent: changeCurrentPost
-	}
+	routingEmitter.on('current', changeCurrentPost)
 }

@@ -1,31 +1,33 @@
 var config = noddityConfig
 var EventEmitter = require('events').EventEmitter
+var makeRouter = require('hash-brown-router')
 
 module.exports = function() {
+	var router = makeRouter()
 	var emitter = new EventEmitter()
 
-	var satnav = Satnav({}).navigate({
-		path: '!/',
-		directions: function(params) {
-			emitter.emit('current', 'index.md')
-		}
-	}).navigate({
-		path: '!/' + config.pagePathPrefix + '{name}',
-		directions: function(params) {
-			emitter.emit('current', params.name)
-		}
-	}).navigate({
-		path: '',
-		directions: function(params) {
-			document.location = document.location + '#!/'
-		}
-	}).change(function(params, old) {
-		window.scrollTo(0,0)
-	}).otherwise('!/' + config.pagePathPrefix + '404.md')
+	emitter.on('404', function() {
+		router.replace('!/' + config.pagePathPrefix + config.errorPage)
+	})
 
+	emitter.on('current', function() {
+		window.scrollTo(0,0)
+	})
+
+	router.add('!/', function() {
+		emitter.emit('current', 'index.md')
+	})
+
+	router.add('!/' + config.pagePathPrefix + ':name', function(parameters) {
+		emitter.emit('current', parameters.name)
+	})
+
+	router.setDefault(function(path) {
+		emitter.emit('404', path)
+	})
 
 	// Gotta give people a chance to hook up to the emitter before we kick 'er into gear
-	setTimeout(satnav.go.bind(satnav), 0)
+	setTimeout(router.evaluateCurrent.bind(null, '!/'), 0)
 
 	return emitter
 }

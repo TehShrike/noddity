@@ -18,11 +18,9 @@ var butler = new Butler(config.noddityRoot, db.sublevel(normalizedSublevelName),
 
 var linkifyEmitter = new Linkifier(config.pathPrefix + config.pagePathPrefix)
 
-var model = new Model(butler, linkifyEmitter)
+var routingEmitter = routing()
 
-var router = routing()
-
-router.on('current', model.setCurrent)
+var model = new Model(butler, linkifyEmitter, routingEmitter)
 
 if (config.debug) {
 	window.debug = require('./debug')
