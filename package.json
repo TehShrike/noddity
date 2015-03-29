@@ -16,7 +16,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "tap ./test/*.js",
+    "test": "echo \"no tests :-(\" && echo 0",
     "watch": "watchify js/index.js -o js/build.js -d",
     "build": "browserify js/index.js | uglifyjs -m > js/build.js"
   },
