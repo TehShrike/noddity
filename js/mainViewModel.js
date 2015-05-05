@@ -79,7 +79,7 @@ module.exports = function MainViewModel(butler, linkifyEmitter, routingEmitter) 
 					changePostInRactive = renderer.populateRootRactive(post, mainRactive)
 				}
 
-				fixAnchorLinks(mainRactive, '#!/' + config.pagePathPrefix + key)
+				fixAnchorLinks(mainRactive, '#!/' + config.pagePathPrefix, key)
 
 				if (!sidebarRactive.get('postList')) {
 					getPostList()
@@ -112,11 +112,11 @@ module.exports = function MainViewModel(butler, linkifyEmitter, routingEmitter) 
 	routingEmitter.on('current', changeCurrentPost)
 }
 
-function fixAnchorLinks(ractive, prefix) {
+function fixAnchorLinks(ractive, prefix, currentKey) {
 	ractive.findAll('a[href]').forEach(function(element) {
 		var href = element.getAttribute('href')
-		if (href && href[0] === '#') {
-			element.setAttribute('href', prefix + href)
+		if (href && href[0] === '#' && href.indexOf(prefix) !== 0) {
+			element.setAttribute('href', prefix + currentKey + href)
 		}
 	})
 }
