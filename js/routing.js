@@ -5,6 +5,7 @@ var makeRouter = require('hash-brown-router')
 module.exports = function() {
 	var router = makeRouter()
 	var emitter = new EventEmitter()
+	var current = null
 
 	emitter.on('404', function() {
 		router.replace('!/' + config.pagePathPrefix + config.errorPage)
@@ -16,6 +17,18 @@ module.exports = function() {
 
 	router.add('!/', function() {
 		emitter.emit('current', 'index.md')
+	})
+
+	router.add('!/' + config.pagePathPrefix + ':name#:anchor', function(parameters) {
+		if (current === parameters.name) {
+			scrollTo(parameters.anchor)
+		} else {
+			emitter.emit('current', parameters.name)
+			current = parameters.name
+			emitter.once('loaded', function() {
+				scrollTo(parameters.anchor)
+			})
+		}
 	})
 
 	router.add('!/' + config.pagePathPrefix + ':name', function(parameters) {
@@ -30,4 +43,11 @@ module.exports = function() {
 	setTimeout(router.evaluateCurrent.bind(null, '!/'), 0)
 
 	return emitter
+}
+
+function scrollTo(anchor) {
+	var el = document.getElementById(anchor)
+	if (el) {
+		window.scrollTo(0, el.offsetTop)
+	}
 }
