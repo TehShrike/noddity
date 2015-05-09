@@ -19,7 +19,7 @@ module.exports = function() {
 		emitter.emit('current', 'index.md')
 	})
 
-	router.add('!/' + config.pagePathPrefix + ':name#:anchor', function(parameters) {
+	router.add('!/' + config.pagePathPrefix + ':name([^#]+)#:anchor', function(parameters) {
 		if (current === parameters.name) {
 			scrollTo(parameters.anchor)
 		} else {
@@ -31,7 +31,7 @@ module.exports = function() {
 		}
 	})
 
-	router.add('!/' + config.pagePathPrefix + ':name', function(parameters) {
+	router.add('!/' + config.pagePathPrefix + ':name([^#]+)', function(parameters) {
 		emitter.emit('current', parameters.name)
 	})
 
