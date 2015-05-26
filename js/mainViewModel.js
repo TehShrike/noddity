@@ -17,28 +17,17 @@ module.exports = function MainViewModel(butler, linkifyEmitter, routingEmitter) 
 	})
 
 	var mainRactive = new Ractive({
-		el: 'main',
-		template: '#template-main',
+		el: 'body',
 		data: Object.create(config)
 	})
 
-	var sidebarTemplate = config.sidebar ? '{{{html}}}' : '#template-menu'
-
-	var sidebarRactive = new Ractive({
-		el: 'sidebar',
-		template: sidebarTemplate,
-		data: Object.create(config)
+	butler.getPost(config.template, function(err, post) {
+		if (err) {
+			doSomethingAboutThisError(err)
+		} else {
+			mainRactive.resetTemplate(post.content)
+		}
 	})
-
-	if (config.sidebar) {
-		butler.getPost(config.sidebar, function(err, post) {
-			if (err) {
-				sidebarRactive.set('html', err.message)
-			} else {
-				renderer.populateRootRactive(post, sidebarRactive)
-			}
-		})
-	}
 
 	function doSomethingAboutThisError(err) {
 		console.log(err)
@@ -47,7 +36,7 @@ module.exports = function MainViewModel(butler, linkifyEmitter, routingEmitter) 
 	function getPostList() {
 		butler.getPosts(function(err, posts) {
 			if (!err) {
-				sidebarRactive.set('postList', posts.reverse().filter(function(post) {
+				mainRactive.set('postList', posts.reverse().filter(function(post) {
 					return typeof post.metadata.title === 'string'
 				}).map(function(post) {
 					return {
@@ -81,7 +70,7 @@ module.exports = function MainViewModel(butler, linkifyEmitter, routingEmitter) 
 
 				fixAnchorLinks(mainRactive, '#!/' + config.pagePathPrefix, key)
 
-				if (!sidebarRactive.get('postList')) {
+				if (!mainRactive.get('postList')) {
 					getPostList()
 				}
 
@@ -89,6 +78,7 @@ module.exports = function MainViewModel(butler, linkifyEmitter, routingEmitter) 
 			}
 		})
 		butler.refreshPost(key)
+		butler.refreshPost(config.template)
 	}
 
 	linkifyEmitter.on('link', function(pageName) {
@@ -100,7 +90,11 @@ module.exports = function MainViewModel(butler, linkifyEmitter, routingEmitter) 
 			return postListItem.filename === key && postListItem.title !== newValue.metadata.title
 		}
 
-		var postList = sidebarRactive.get('postList')
+		if (key === config.template) {
+			mainRactive.resetTemplate(newValue.content)
+		}
+
+		var postList = mainRactive.get('postList')
 		if (postList && postList.some(titleHasChanged)) {
 			getPostList()
 		}
