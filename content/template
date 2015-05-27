@@ -6,7 +6,7 @@ markdown: false
 {{/editLink}}
 
 <div id="sidebar">
-	<a href="./">
+	<a href="./#!/">
 		<img class="logo" src="{{logo}}" />
 	</a>
 	<div>
