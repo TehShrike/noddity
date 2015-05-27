@@ -1,8 +1,7 @@
-#sidebar {
-	float: left;
-	position: relative;
-	padding: 25px;
-	width: 300px;
+body {
+	min-width: 1110px;
+	color: #141414;
+	background-color: #FAFAFA;
 }
 
 #main {
@@ -12,19 +11,15 @@
 	width: 700px;
 }
 
-body {
+#sidebar {
 	float: left;
-	min-width: 1110px;
-	color: #141414;
-	background-color: #FAFAFA;
+	position: relative;
+	padding: 25px;
+	width: 300px;
 }
 
 #sidebar ol {
 	padding: 0;
-}
-
-#sidebar li a {
-	text-decoration: none;
 }
 
 #sidebar li {
@@ -32,6 +27,10 @@ body {
 	margin: 20px 0px;
 	line-height: 1.05;
 	list-style-type: none;
+}
+
+#sidebar li a {
+	text-decoration: none;
 }
 
 h1,h2,h3,h4,#sidebar a {
@@ -70,7 +69,7 @@ img.logo {
 	margin-right: auto;
 }
 
-div#edit-post-link {
+#edit-post-link {
 	position: absolute;
 	top: 2em;
 	right: 0;
@@ -81,7 +80,7 @@ div#edit-post-link {
 	-ms-transform:rotate(45deg);
 }
 
-div#edit-post-link a {
+#edit-post-link a {
 	text-decoration: none;
 	color: gray;
 }
