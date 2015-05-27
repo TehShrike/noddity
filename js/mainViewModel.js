@@ -78,7 +78,6 @@ module.exports = function MainViewModel(butler, linkifyEmitter, routingEmitter) 
 			}
 		})
 		butler.refreshPost(key)
-		butler.refreshPost(config.template)
 	}
 
 	linkifyEmitter.on('link', function(pageName) {
