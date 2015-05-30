@@ -6,6 +6,6 @@ noddityConfig = {
 	errorPage: '404.md',
 	pathPrefix: '#!/',
 	pagePathPrefix: 'post/',
-	template: 'template',
+	template: 'post',
 	debug: false
 }
