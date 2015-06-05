@@ -1,5 +1,6 @@
 title: The Noddity back end: how posts and stuff work
 date: Fri Jan 31 2014 00:00:00 GMT+0000 (UTC)
+tags: wow, consumer, posts, work
 
 Use this one strange tip to enlarge your internet blog!  I mean, uh, this page will tell you how to get those [markdown](http://daringfireball.net/projects/markdown/) files so that they start showing up to Noddity consumers.
 

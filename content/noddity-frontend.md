@@ -1,5 +1,6 @@
 title: The Noddity front end: how caching and stuff works
 date: Fri Jan 30 2014 00:00:00 GMT+0000 (UTC)
+tags: cool, pages, web
 
 So on the [[index.md|main intro page]] in the "distinctives" section I mentioned how my priorities were having all the code running in the browser, not having any build steps, and having cached content for super-fast page loads.  This is how that works!
 

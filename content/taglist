@@ -1,0 +1,11 @@
+title: list of posts with specified attribute matching specified value
+markdown: false
+
+{{postList.filter(function(post) { post.tags.split(', ').indexOf(tag) !== -1 })}}
+
+Blah
+<ul>
+{{#postList}}
+	<li>{{tags}}</li>
+{{/postList}}
+</ul>

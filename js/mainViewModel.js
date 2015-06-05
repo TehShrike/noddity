@@ -1,4 +1,5 @@
 var Ractive = require('ractive')
+var xtend = require('xtend')
 var config = noddityConfig
 var Renderer = require('noddity-renderer')
 
@@ -39,10 +40,14 @@ module.exports = function MainViewModel(butler, linkifyEmitter, routingEmitter) 
 				mainRactive.set('postList', posts.reverse().filter(function(post) {
 					return typeof post.metadata.title === 'string'
 				}).map(function(post) {
-					return {
-						title: post.metadata.title,
+					return xtend(post.metadata, {
 						filename: post.filename
-					}
+					})
+
+					// return {
+					// 	title: post.metadata.title,
+					// 	filename: post.filename
+					// }
 				}))
 			} else {
 				doSomethingAboutThisError(err)

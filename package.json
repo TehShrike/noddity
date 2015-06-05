@@ -29,7 +29,8 @@
     "noddity-renderer": "^3.1.0",
     "pagedown": "~1.1.0",
     "ractive": "~0.7.3",
-    "subleveldown": "^2.0.0"
+    "subleveldown": "^2.0.0",
+    "xtend": "^4.0.0"
   },
   "devDependencies": {
     "browserify": "^10.2.1",

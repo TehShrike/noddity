@@ -13,7 +13,7 @@ var db = levelup('noddity-content-3', { db: storage })
 var normalizedSublevelName = config.title.replace(/[^\w]+/g, '')
 
 require('ractive').DEBUG = config.debug
-var butlerOptions = config.debug ? { refreshEvery: 30 * 1000 } : { cacheCheckIntervalMs: 60 * 1000 }
+var butlerOptions = config.debug ? { refreshEvery: 2 * 1000 } : { cacheCheckIntervalMs: 60 * 1000 }
 var butler = new Butler(config.noddityRoot, sub(db, normalizedSublevelName), butlerOptions)
 
 var linkifyEmitter = new Linkifier(config.pathPrefix + config.pagePathPrefix)
