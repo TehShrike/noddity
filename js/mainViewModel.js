@@ -1,4 +1,5 @@
 var Ractive = require('ractive')
+var xtend = require('xtend')
 var config = noddityConfig
 var Renderer = require('noddity-renderer')
 
@@ -39,11 +40,26 @@ module.exports = function MainViewModel(butler, linkifyEmitter, routingEmitter) 
 				mainRactive.set('postList', posts.reverse().filter(function(post) {
 					return typeof post.metadata.title === 'string'
 				}).map(function(post) {
-					return {
-						title: post.metadata.title,
+					return xtend(post.metadata, {
 						filename: post.filename
-					}
+					})
 				}))
+				// This function (postsWithTag) returns the subset of 
+				// the passed-in list of posts that have the specified tag.
+				// This block could maybe go somewhere better.
+				mainRactive.set('postsWithTag', function(tag, postList) {
+					if (!postList) {
+						// If this function gets called too soon, postList will be null, because the template can't see it yet.
+						// This happens if the page referencing this function is loaded first (via URL).
+						console.log("TODO: Fix properties not being accessible immediately in markdown/ractive/mustache")
+						return []
+					}
+
+					return postList.filter(function(post) {
+						return post.tags ? post.tags.split(', ').indexOf(tag) !== -1 : 0
+					})
+				})
+
 			} else {
 				doSomethingAboutThisError(err)
 			}

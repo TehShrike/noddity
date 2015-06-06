@@ -1,4 +1,5 @@
 title: Welcome to Noddity, the awesome cms-thing!
+tags: wow, such
 
 I wrote Noddity to replace the unnecessarily-heavy backend-centric framework that was running my personal blog-site.
 

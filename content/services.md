@@ -1,5 +1,6 @@
 title: Services
 date: Fri Jan 28 2014 12:00:00 GMT+0000 (UTC)
+tags: service, wow, such
 
 A Noddity blog is a single-page app that loads and displays a directory full of markdown files.  But that's not always enough, is it?
 

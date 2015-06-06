@@ -1,5 +1,6 @@
 title: Contribute, licensing
 date: Fri Jan 27 2014 00:00:00 GMT+0000 (UTC)
+tag: cool, contribute, such, wow
 
 Oh man, it would be awesome if you felt like helping out!
 

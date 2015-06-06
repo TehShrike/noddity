@@ -1,0 +1,8 @@
+title: list of posts with specified tag
+markdown: false
+
+<ul>
+{{#postsWithTag(tag, postList)}}
+	<li><a href="{{pathPrefix}}{{pagePathPrefix}}{{filename}}">{{title}}</a></li>
+{{/postList}}
+</ul>

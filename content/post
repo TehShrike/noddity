@@ -25,6 +25,14 @@ markdown: false
 			{{#metadata.title}}
 				<h1>{{metadata.title}}</h1>
 			{{/metadata.title}}
+
+			Tags: 
+			<em>
+			{{#metadata.tags}}
+				{{metadata.tags}}
+			{{/metadata.tags}}
+			</em>
+			
 			<div class="post-content">
 				{{{html}}}
 			</div>
