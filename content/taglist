@@ -1,11 +1,8 @@
-title: list of posts with specified attribute matching specified value
+title: list of posts with specified tag
 markdown: false
 
-{{postList.filter(function(post) { post.tags.split(', ').indexOf(tag) !== -1 })}}
-
-Blah
 <ul>
-{{#postList}}
-	<li>{{tags}}</li>
+{{#postsWithTag(tag, postList)}}
+	<li><a href="{{pathPrefix}}{{pagePathPrefix}}{{filename}}">{{title}}</a></li>
 {{/postList}}
 </ul>
