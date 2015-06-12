@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "browserify": "^10.2.1",
-    "watchify": "^3.2.1"
+    "watchify": "^3.2.1",
+    "uglifyjs": "^2.4.10"
   }
 }
