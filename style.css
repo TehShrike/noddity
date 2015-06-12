@@ -95,4 +95,5 @@ blockquote {
 code, pre {
 	font-family: "Monaco","Courier","monospace";
 	font-size: .8em;
+	background-color: #ECECEC;
 }
