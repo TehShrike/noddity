@@ -42,7 +42,8 @@ Yeah, actually!  I added the ability to store metadata in the file.  The parsing
 
 You can put any other metadata there, though - tags, categories, author - anything metadata that you don't want to lose from your posts when you migrate over from another system (maybe bringing them from Wordpress with a [module like noddity-wordpress-export](https://github.com/saibotsivad/noddity-wordpress-export)), or just anything that you might want to use to search/filter them in the future.
 
-I'm using [PageDown](https://code.google.com/p/pagedown/wiki/PageDown) to parse markdown at the moment.  In addition, the client is also turning `[[some-page-you-want-to-link-to.md|wiki-style internal links]]` into [[some-page-you-want-to-link-to.md|wiki-style internal links]].
+I'm using [Remarkable](https://jonschlinkert.github.io/remarkable/demo/) to parse markdown at the moment.  In addition, the client is also turning `[[some-page-you-want-to-link-to.md|wiki-style internal links]]` into [[some-page-you-want-to-link-to.md|wiki-style internal links]].
+Read more details under [[post-documentation.md|post documentation]].
 
 Templates
 ---------
