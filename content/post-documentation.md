@@ -1,5 +1,7 @@
+---
 title: Post/template documentation
-date: Thu Jun 11 2015 20:16:56 GMT-0500 (CDT)
+date: "Thu Jun 11 2015 20:16:56 GMT-0500 (CDT)"
+---
 
 Posts can be [straight markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet), but there are some other goodies.  To start with, you can use goodies like footnotes and tables that are supported by the [remarkable](https://www.npmjs.com/package/remarkable#syntax-extensions) parser.
 
