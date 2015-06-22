@@ -1,0 +1,4 @@
+title: Relative Image
+markdown: false
+
+<img src="{{ noddityRoot + current.slice(0, current.lastIndexOf('/') + 1) + this.1 }}">
