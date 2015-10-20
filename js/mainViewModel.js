@@ -1,108 +1,50 @@
-var Ractive = require('ractive')
-var config = noddityConfig
-var Renderer = require('noddity-renderer')
+var renderDom = require('noddity-render-dom')
+var Butler = require('noddity-butler')
+var Linkifier = require('noddity-linkifier')
+var LevelJs = require('level-js')
 
-function noop() {}
+var db = new LevelJs('noddity-posts-db')
+var butler = new Butler('http://example.com/blogfiles/', db)
+var linkifier = new Linkifier('#/myposts/')
+
+var options = {
+	butler: butler,
+	linkifier: linkifier,
+	el: 'body',
+	data: {}
+}
 
 module.exports = function MainViewModel(butler, linkifyEmitter, routingEmitter) {
-	var renderer = new Renderer(butler, linkifyEmitter.linkify)
-	var changePostInRactive = null
-
-	var titleRactive = new Ractive({
-		el: 'title',
-		template: '{{title}}{{#page}} | {{page}}{{/page}}',
-		data: {
-			title: config.title
-		}
-	})
-
-	var mainRactive = new Ractive({
-		el: 'body',
-		data: Object.create(config)
-	})
-
-	butler.getPost(config.template, function(err, post) {
-		if (err) {
-			doSomethingAboutThisError(err)
-		} else {
-			mainRactive.resetTemplate(post.content)
-		}
-	})
-
-	function doSomethingAboutThisError(err) {
-		console.log(err)
-	}
-
-	function getPostList() {
-		butler.getPosts(function(err, posts) {
-			if (!err) {
-				mainRactive.set('postList', posts.reverse().filter(function(post) {
-					return typeof post.metadata.title === 'string'
-				}).map(function(post) {
-					return {
-						title: post.metadata.title,
-						filename: post.filename
-					}
-				}))
-			} else {
-				doSomethingAboutThisError(err)
-			}
-		})
-	}
-
-	function changeCurrentPost(key) {
-		butler.getPost(key, function(err, post) {
-			if (err) {
-				mainRactive.set('html', err.message)
-				titleRactive.set('page', null)
-
-				if (key !== config.errorPage) {
-					routingEmitter.emit('404')
-				}
-			} else {
-				titleRactive.set('page', post.metadata.title)
-
-				if (changePostInRactive) {
-					changePostInRactive(post)
-				} else {
-					changePostInRactive = renderer.populateRootRactive(post, mainRactive)
-				}
-
-				fixAnchorLinks(mainRactive, '#!/' + config.pagePathPrefix, key)
-
-				if (!mainRactive.get('postList')) {
-					getPostList()
-				}
-
-				routingEmitter.emit('loaded', key)
-			}
-		})
-		butler.refreshPost(key)
-	}
 
 	linkifyEmitter.on('link', function(pageName) {
-		butler.getPost(pageName, noop)
+		butler.getPost(pageName, function () {})
 	})
 
-	function onPostChanged(key, newValue, oldValue) {
-		function titleHasChanged(postListItem) {
-			return postListItem.filename === key && postListItem.title !== newValue.metadata.title
-		}
+	renderDom('index.html', options, function (err, setCurrent) {
+		if (err) document.body.innerHTML = '<h1>ERROR</h1>' + err.message
 
-		if (key === config.template) {
-			mainRactive.resetTemplate(newValue.content)
-		}
+		routingEmitter.on('current', function (postTitle) {
+			setCurrent(postTitle, function (err) {
+				if (err) {
+					setCurrent('404.md')
+					mainRactive.set('html', err.message)
 
-		var postList = mainRactive.get('postList')
-		if (postList && postList.some(titleHasChanged)) {
-			getPostList()
-		}
-	}
+					if (postTitle !== config.errorPage) {
+						routingEmitter.emit('404')
+					}
+				} else {
+					fixAnchorLinks(mainRactive, '#!/' + config.pagePathPrefix, postTitle)
 
-	butler.on('post changed', onPostChanged)
-	butler.on('index changed', getPostList)
+					if (!mainRactive.get('postList')) {
+						getPostList()
+					}
 
-	routingEmitter.on('current', changeCurrentPost)
+					routingEmitter.emit('loaded', postTitle)
+				}
+				butler.refreshPost(postTitle)
+			})
+		})
+	})
 }
 
 function fixAnchorLinks(ractive, prefix, currentKey) {

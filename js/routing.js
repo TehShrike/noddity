@@ -26,7 +26,7 @@ module.exports = function() {
 			emitter.emit('current', parameters.name)
 			current = parameters.name
 			emitter.once('loaded', function() {
-				scrollTo(parameters.anchor)
+				scrollToAnchor(parameters.anchor)
 			})
 		}
 	})
@@ -45,7 +45,7 @@ module.exports = function() {
 	return emitter
 }
 
-function scrollTo(anchor) {
+function scrollToAnchor(anchor) {
 	var el = document.getElementById(anchor)
 	if (el) {
 		window.scrollTo(0, el.offsetTop)

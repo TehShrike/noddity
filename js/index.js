@@ -5,7 +5,7 @@ var Leveldown = require('localstorage-down')
 var routing = require('./routing')
 var model = require('./mainViewModel')
 var sub = require('subleveldown')
-var config = noddityConfig
+var config = global.noddityConfig
 
 var storage = function leveldownFactory(location) { return new Leveldown(location) }
 
