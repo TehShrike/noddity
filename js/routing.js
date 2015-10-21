@@ -1,6 +1,6 @@
-var config = noddityConfig
 var EventEmitter = require('events').EventEmitter
 var makeRouter = require('hash-brown-router')
+var config = window.noddityConfig
 
 module.exports = function() {
 	var router = makeRouter()
@@ -21,7 +21,7 @@ module.exports = function() {
 
 	router.add('!/' + config.pagePathPrefix + ':name([^#]+)#:anchor', function(parameters) {
 		if (current === parameters.name) {
-			scrollTo(parameters.anchor)
+			scrollToAnchor(parameters.anchor)
 		} else {
 			emitter.emit('current', parameters.name)
 			current = parameters.name

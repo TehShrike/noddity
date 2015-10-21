@@ -1,4 +1,4 @@
-noddityConfig = {
+window.noddityConfig = {
 	title: 'Noddity',
 	noddityRoot: window.location.pathname + 'content/',
 	editLink: 'https://github.com/TehShrike/noddity/edit/master/content/',

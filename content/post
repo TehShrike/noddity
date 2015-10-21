@@ -26,7 +26,7 @@ markdown: false
 				<h1>{{metadata.title}}</h1>
 			{{/metadata.title}}
 			<div class="post-content">
-				{{{html}}}
+				{{>current}}
 			</div>
 		</div>
 	</article>
