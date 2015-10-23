@@ -2,7 +2,6 @@ var Butler = require('noddity-butler')
 var levelup = require('levelup')
 var Linkifier = require('noddity-linkifier')
 var Leveldown = require('localstorage-down')
-var routing = require('./routing')
 var model = require('./mainViewModel')
 var sub = require('subleveldown')
 var config = global.noddityConfig
@@ -18,9 +17,7 @@ var butler = new Butler(config.noddityRoot, sub(db, normalizedSublevelName), but
 
 var linkifyEmitter = new Linkifier(config.pathPrefix + config.pagePathPrefix)
 
-var routingEmitter = routing()
-
-model(butler, linkifyEmitter, routingEmitter)
+model(butler, linkifyEmitter)
 
 if (config.debug) {
 	window.debug = require('./debug')

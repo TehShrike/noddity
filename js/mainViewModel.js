@@ -1,7 +1,8 @@
 var renderDom = require('noddity-render-dom')
+var routing = require('./routing')
 var config = window.noddityConfig
 
-module.exports = function MainViewModel(butler, linkifyEmitter, routingEmitter) {
+module.exports = function MainViewModel(butler, linkifyEmitter) {
 	var options = {
 		butler: butler,
 		linkifier: linkifyEmitter,
@@ -14,7 +15,11 @@ module.exports = function MainViewModel(butler, linkifyEmitter, routingEmitter) 
 	})
 
 	renderDom('post', options, function (err, setCurrent) {
-		if (err) { document.body.innerHTML = '<h1>ERROR</h1>' + err.message }
+		if (err) {
+			console.error(err)
+			document.body.innerHTML = '<h1>ERROR</h1>' + err.message
+		}
+		var routingEmitter = routing(butler.getPost)
 
 		routingEmitter.on('current', function (postTitle) {
 			setCurrent(postTitle, function (err) {
