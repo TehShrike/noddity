@@ -22,9 +22,9 @@ markdown: false
 <div id="main">
 	<article>
 		<div>
-			{{#metadata.title}}
-				<h1>{{metadata.title}}</h1>
-			{{/metadata.title}}
+			{{#title}}
+				<h1>{{title}}</h1>
+			{{/title}}
 			<div class="post-content">
 				{{>current}}
 			</div>
