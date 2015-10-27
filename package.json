@@ -16,7 +16,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"no tests :-(\" && echo 0",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "watchify js/index.js -o js/build.js -d",
     "build": "browserify js/index.js | uglifyjs -m > js/build.js"
   },
@@ -26,7 +26,7 @@
     "localstorage-down": "~0.6.3",
     "noddity-butler": "^2.0.0",
     "noddity-linkifier": "~2.1.0",
-    "noddity-render-dom": "^1.1.0",
+    "noddity-render-dom": "^1.2.1",
     "pagedown": "~1.1.0",
     "ractive": "~0.7.3",
     "subleveldown": "^2.0.0"
