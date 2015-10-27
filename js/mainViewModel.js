@@ -1,6 +1,8 @@
 var renderDom = require('noddity-render-dom')
 var routing = require('./routing')
+var Ractive = require('ractive')
 var config = window.noddityConfig
+Ractive.DEBUG = config.debug
 
 module.exports = function MainViewModel(butler, linkifyEmitter) {
 	var options = {
@@ -9,6 +11,11 @@ module.exports = function MainViewModel(butler, linkifyEmitter) {
 		el: 'body',
 		data: config
 	}
+
+	var titleRactive = new Ractive({
+		el: 'title',
+		data: config
+	})
 
 	linkifyEmitter.on('link', function(pageName) {
 		butler.getPost(pageName, function () {})
@@ -22,6 +29,8 @@ module.exports = function MainViewModel(butler, linkifyEmitter) {
 		var routingEmitter = routing(butler.getPost)
 
 		routingEmitter.on('current', function (postTitle) {
+			titleRactive.reset(config)
+
 			setCurrent(postTitle, function (err) {
 				if (err) {
 					if (postTitle !== config.errorPage) {
@@ -31,13 +40,14 @@ module.exports = function MainViewModel(butler, linkifyEmitter) {
 					//fixAnchorLinks(setCurrent.ractive, '#!/' + config.pagePathPrefix, postTitle)
 					routingEmitter.emit('loaded', postTitle)
 				}
+				butler.getPost(postTitle, function (err, post) {
+					if (post && post.metadata) titleRactive.set(post.metadata)
+				})
 				butler.refreshPost(postTitle)
 			})
 		})
 
-		setCurrent.on('error', function (err) {
-			console.error('error', err)
-		})
+		setCurrent.on('error', console.error.bind(console, 'setCurrent error'))
 	})
 }
 

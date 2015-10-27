@@ -1,5 +1,5 @@
 window.noddityConfig = {
-	title: 'Noddity',
+	name: 'Noddity',
 	noddityRoot: window.location.pathname + 'content/',
 	editLink: 'https://github.com/TehShrike/noddity/edit/master/content/',
 	logo: 'logo.svg',
