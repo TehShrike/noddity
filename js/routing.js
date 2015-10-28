@@ -12,10 +12,6 @@ module.exports = function(getPost) {
 	})
 
 	routingEmitter.on('current', function(name) {
-		getPost(name, function (err, post) {
-			if (err) console.error(err)
-			else document.title = post.metadata.title // make a ractive instance for this
-		})
 		window.scrollTo(0,0)
 	})
 

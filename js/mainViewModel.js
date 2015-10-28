@@ -14,7 +14,7 @@ module.exports = function MainViewModel(butler, linkifyEmitter) {
 
 	var titleRactive = new Ractive({
 		el: 'title',
-		data: config
+		template: document.title
 	})
 
 	linkifyEmitter.on('link', function(pageName) {
@@ -41,7 +41,7 @@ module.exports = function MainViewModel(butler, linkifyEmitter) {
 					routingEmitter.emit('loaded', postTitle)
 				}
 				butler.getPost(postTitle, function (err, post) {
-					if (post && post.metadata) titleRactive.set(post.metadata)
+					if (post) titleRactive.set(post.metadata)
 				})
 				butler.refreshPost(postTitle)
 			})
