@@ -26,7 +26,7 @@
     "localstorage-down": "~0.6.3",
     "noddity-butler": "^2.0.0",
     "noddity-linkifier": "~2.1.0",
-    "noddity-render-dom": "^1.2.2",
+    "noddity-render-dom": "^2.1.0",
     "pagedown": "~1.1.0",
     "ractive": "~0.7.3",
     "subleveldown": "^2.0.0"
