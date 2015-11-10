@@ -19,5 +19,5 @@ var linkifyEmitter = new Linkifier(config.pathPrefix + config.pagePathPrefix)
 model(butler, linkifyEmitter)
 
 if (config.debug) {
-	window.debug = require('./debug')
+	debug = require('./debug') // Global
 }

@@ -1,10 +1,11 @@
 var renderDom = require('noddity-render-dom')
 var routing = require('./routing')
 var Ractive = require('ractive')
-var config = window.noddityConfig
+var config = noddityConfig // Global
 Ractive.DEBUG = config.debug
 
 module.exports = function MainViewModel(butler, linkifyEmitter) {
+	var currentPostFilename = ''
 	var options = {
 		butler: butler,
 		linkifier: linkifyEmitter,
@@ -14,7 +15,20 @@ module.exports = function MainViewModel(butler, linkifyEmitter) {
 
 	var titleRactive = new Ractive({
 		el: 'title',
-		template: document.title
+		template: '{{name}}{{#current.metadata.title}} | {{current.metadata.title}}{{/current.metadata.title}}'
+	})
+
+	function setPostTitle(err, post) {
+		titleRactive.reset(config)
+		if (!err && post) {
+			titleRactive.set('current', post)
+		}
+	}
+
+	butler.on('post change', function (post) {
+		if (post.filename === currentPostFilename) {
+			setPostTitle(null, post)
+		}
 	})
 
 	linkifyEmitter.on('link', function(pageName) {
@@ -26,24 +40,21 @@ module.exports = function MainViewModel(butler, linkifyEmitter) {
 			console.error(err)
 			document.body.innerHTML = '<h1>ERROR</h1>' + err.message
 		}
-		var routingEmitter = routing(butler.getPost)
+		var routingEmitter = routing()
 
-		routingEmitter.on('current', function (postTitle) {
-			titleRactive.reset(config)
+		routingEmitter.on('current', function (postFilename) {
 
-			setCurrent(postTitle, function (err) {
+			setCurrent(postFilename, function (err) {
 				if (err) {
-					if (postTitle !== config.errorPage) {
+					if (postFilename !== config.errorPage) {
 						routingEmitter.emit('404')
 					}
 				} else {
-					//fixAnchorLinks(setCurrent.ractive, '#!/' + config.pagePathPrefix, postTitle)
-					routingEmitter.emit('loaded', postTitle)
+					fixAnchorLinks(setCurrent.ractive, '#!/' + config.pagePathPrefix, postFilename)
+					routingEmitter.emit('loaded', postFilename)
 				}
-				butler.getPost(postTitle, function (err, post) {
-					if (post) titleRactive.set(post.metadata)
-				})
-				butler.refreshPost(postTitle)
+				butler.getPost(postFilename, setPostTitle)
+				butler.refreshPost(postFilename)
 			})
 		})
 

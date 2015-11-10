@@ -4,7 +4,7 @@ var storage = function leveldownFactory(location) { return new Leveldown(locatio
 
 module.exports = {
 	clearCache: function clearCache() {
-		var level = levelup('noddity-content', { db: storage })
+		var level = levelup('noddity-content-3', { db: storage })
 		level.createKeyStream().on('data', function(key) {
 			level.del(key)
 		})

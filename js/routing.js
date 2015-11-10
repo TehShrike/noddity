@@ -1,8 +1,8 @@
 var EventEmitter = require('events').EventEmitter
 var makeRouter = require('hash-brown-router')
-var config = window.noddityConfig
+var config = noddityConfig // Global
 
-module.exports = function(getPost) {
+module.exports = function() {
 	var router = makeRouter()
 	var routingEmitter = new EventEmitter()
 	var current = null
@@ -12,7 +12,7 @@ module.exports = function(getPost) {
 	})
 
 	routingEmitter.on('current', function(name) {
-		window.scrollTo(0,0)
+		scrollTo(0,0)
 	})
 
 	router.add('!/', function() {
@@ -48,6 +48,6 @@ module.exports = function(getPost) {
 function scrollToAnchor(anchor) {
 	var el = document.getElementById(anchor)
 	if (el) {
-		window.scrollTo(0, el.offsetTop)
+		scrollTo(0, el.offsetTop)
 	}
 }
