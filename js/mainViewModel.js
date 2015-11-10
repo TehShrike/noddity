@@ -1,108 +1,65 @@
+var renderDom = require('noddity-render-dom')
+var routing = require('./routing')
 var Ractive = require('ractive')
-var config = noddityConfig
-var Renderer = require('noddity-renderer')
+var config = noddityConfig // Global
+Ractive.DEBUG = config.debug
 
-function noop() {}
-
-module.exports = function MainViewModel(butler, linkifyEmitter, routingEmitter) {
-	var renderer = new Renderer(butler, linkifyEmitter.linkify)
-	var changePostInRactive = null
+module.exports = function MainViewModel(butler, linkifyEmitter) {
+	var currentPostFilename = ''
+	var options = {
+		butler: butler,
+		linkifier: linkifyEmitter,
+		el: 'body',
+		data: config
+	}
 
 	var titleRactive = new Ractive({
 		el: 'title',
-		template: '{{title}}{{#page}} | {{page}}{{/page}}',
-		data: {
-			title: config.title
+		template: '{{name}}{{#current.metadata.title}} | {{current.metadata.title}}{{/current.metadata.title}}'
+	})
+
+	function setPostTitle(err, post) {
+		titleRactive.reset(config)
+		if (!err && post) {
+			titleRactive.set('current', post)
+		}
+	}
+
+	butler.on('post change', function (post) {
+		if (post.filename === currentPostFilename) {
+			setPostTitle(null, post)
 		}
 	})
-
-	var mainRactive = new Ractive({
-		el: 'body',
-		data: Object.create(config)
-	})
-
-	butler.getPost(config.template, function(err, post) {
-		if (err) {
-			doSomethingAboutThisError(err)
-		} else {
-			mainRactive.resetTemplate(post.content)
-		}
-	})
-
-	function doSomethingAboutThisError(err) {
-		console.log(err)
-	}
-
-	function getPostList() {
-		butler.getPosts(function(err, posts) {
-			if (!err) {
-				mainRactive.set('postList', posts.reverse().filter(function(post) {
-					return typeof post.metadata.title === 'string'
-				}).map(function(post) {
-					return {
-						title: post.metadata.title,
-						filename: post.filename
-					}
-				}))
-			} else {
-				doSomethingAboutThisError(err)
-			}
-		})
-	}
-
-	function changeCurrentPost(key) {
-		butler.getPost(key, function(err, post) {
-			if (err) {
-				mainRactive.set('html', err.message)
-				titleRactive.set('page', null)
-
-				if (key !== config.errorPage) {
-					routingEmitter.emit('404')
-				}
-			} else {
-				titleRactive.set('page', post.metadata.title)
-
-				if (changePostInRactive) {
-					changePostInRactive(post)
-				} else {
-					changePostInRactive = renderer.populateRootRactive(post, mainRactive)
-				}
-
-				fixAnchorLinks(mainRactive, '#!/' + config.pagePathPrefix, key)
-
-				if (!mainRactive.get('postList')) {
-					getPostList()
-				}
-
-				routingEmitter.emit('loaded', key)
-			}
-		})
-		butler.refreshPost(key)
-	}
 
 	linkifyEmitter.on('link', function(pageName) {
-		butler.getPost(pageName, noop)
+		butler.getPost(pageName, function () {})
 	})
 
-	function onPostChanged(key, newValue, oldValue) {
-		function titleHasChanged(postListItem) {
-			return postListItem.filename === key && postListItem.title !== newValue.metadata.title
+	renderDom('post', options, function (err, setCurrent) {
+		if (err) {
+			console.error(err)
+			document.body.innerHTML = '<h1>ERROR</h1>' + err.message
 		}
+		var routingEmitter = routing()
 
-		if (key === config.template) {
-			mainRactive.resetTemplate(newValue.content)
-		}
+		routingEmitter.on('current', function (postFilename) {
 
-		var postList = mainRactive.get('postList')
-		if (postList && postList.some(titleHasChanged)) {
-			getPostList()
-		}
-	}
+			setCurrent(postFilename, function (err) {
+				if (err) {
+					if (postFilename !== config.errorPage) {
+						routingEmitter.emit('404')
+					}
+				} else {
+					fixAnchorLinks(setCurrent.ractive, '#!/' + config.pagePathPrefix, postFilename)
+					routingEmitter.emit('loaded', postFilename)
+				}
+				butler.getPost(postFilename, setPostTitle)
+				butler.refreshPost(postFilename)
+			})
+		})
 
-	butler.on('post changed', onPostChanged)
-	butler.on('index changed', getPostList)
-
-	routingEmitter.on('current', changeCurrentPost)
+		setCurrent.on('error', console.error.bind(console, 'setCurrent error'))
+	})
 }
 
 function fixAnchorLinks(ractive, prefix, currentKey) {
