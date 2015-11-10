@@ -4,7 +4,7 @@ var Linkifier = require('noddity-linkifier')
 var Leveldown = require('localstorage-down')
 var model = require('./mainViewModel')
 var sub = require('subleveldown')
-var config = global.noddityConfig
+var config = noddityConfig // Global
 
 var storage = function leveldownFactory(location) { return new Leveldown(location) }
 
