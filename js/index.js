@@ -9,7 +9,9 @@ var config = noddityConfig // Global
 var storage = function leveldownFactory(location) { return new Leveldown(location) }
 
 var db = levelup('noddity-content-3', { db: storage })
-var normalizedSublevelName = config.name.replace(/[^\w]+/g, '')
+
+config.title = config.name = (config.title || config.name)
+var normalizedSublevelName = config.title.replace(/[^\w]+/g, '')
 
 var butlerOptions = config.debug ? { refreshEvery: 30 * 1000 } : { cacheCheckIntervalMs: 60 * 1000 }
 var butler = new Butler(config.noddityRoot, sub(db, normalizedSublevelName), butlerOptions)
