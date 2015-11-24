@@ -20,6 +20,10 @@ var linkifyEmitter = new Linkifier(config.pathPrefix + config.pagePathPrefix)
 
 model(butler, linkifyEmitter)
 
+if (config.sidebar) {
+	console.warn('The "sidebar" config.js setting is not supported any more - you should add ::' + config.sidebar + ':: to your ' + config.template + ' template')
+}
+
 if (config.debug) {
 	debug = require('./debug') // Global
 }
