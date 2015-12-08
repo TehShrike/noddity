@@ -12,18 +12,18 @@ module.exports = function() {
 	})
 
 	routingEmitter.on('current', function(name) {
-		scrollTo(0,0)
+		scrollTo(0, 0)
 	})
 
-	router.add('!/', function() {
-		routingEmitter.emit('current', 'index.md')
+	router.add('!/', function(parameters) {
+		routingEmitter.emit('current', 'index.md', parameters)
 	})
 
 	router.add('!/' + config.pagePathPrefix + ':name([^#]+)#:anchor', function(parameters) {
 		if (current === parameters.name) {
 			scrollToAnchor(parameters.anchor)
 		} else {
-			routingEmitter.emit('current', parameters.name)
+			routingEmitter.emit('current', parameters.name, parameters)
 			current = parameters.name
 			routingEmitter.once('loaded', function() {
 				scrollToAnchor(parameters.anchor)
@@ -32,7 +32,7 @@ module.exports = function() {
 	})
 
 	router.add('!/' + config.pagePathPrefix + ':name([^#]+)', function(parameters) {
-		routingEmitter.emit('current', parameters.name)
+		routingEmitter.emit('current', parameters.name, parameters)
 	})
 
 	router.setDefault(function(path) {
