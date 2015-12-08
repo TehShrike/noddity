@@ -42,9 +42,12 @@ module.exports = function MainViewModel(butler, linkifyEmitter) {
 		}
 		var routingEmitter = routing()
 
-		routingEmitter.on('current', function (postFilename) {
-
-			setCurrent(postFilename, function (err) {
+		routingEmitter.on('current', function (postFilename, parameters) {
+			var currentData = {
+				parameters: parameters || {}
+			}
+			
+			setCurrent(postFilename, currentData, function (err) {
 				if (err) {
 					if (postFilename !== config.errorPage) {
 						routingEmitter.emit('404')
