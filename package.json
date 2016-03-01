@@ -2,6 +2,7 @@
   "name": "noddity",
   "version": "4.1.0",
   "main": "./index.js",
+  "license": "WTFPL",
   "author": {
     "name": "TehShrike",
     "email": "me@JoshDuff.com",
@@ -21,9 +22,9 @@
     "build": "browserify js/index.js | uglifyjs -m > js/build.js"
   },
   "dependencies": {
+    "fruitdown": "1.0.1",
     "hash-brown-router": "^1.3.3",
     "levelup": "~1.2.1",
-    "localstorage-down": "~0.6.3",
     "noddity-butler": "^2.0.0",
     "noddity-linkifier": "~2.1.0",
     "noddity-render-dom": "^3.0.0",

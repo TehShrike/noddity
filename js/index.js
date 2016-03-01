@@ -1,14 +1,12 @@
 var Butler = require('noddity-butler')
 var levelup = require('levelup')
 var Linkifier = require('noddity-linkifier')
-var Leveldown = require('localstorage-down')
+var fruitdown = require('fruitdown')
 var model = require('./mainViewModel')
 var sub = require('subleveldown')
 var config = noddityConfig // Global
 
-var storage = function leveldownFactory(location) { return new Leveldown(location) }
-
-var db = levelup('noddity-content-3', { db: storage })
+var db = levelup('noddity-content-3', { db: fruitdown })
 
 config.title = config.name = (config.title || config.name)
 var normalizedSublevelName = config.title.replace(/[^\w]+/g, '')
