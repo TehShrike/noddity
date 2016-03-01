@@ -19,9 +19,9 @@ That sounds like it could be a lot of XMLHttpRequests to be making per-page load
 How content is cached
 ========
 
-All of the content access is done by the [noddity-butler](https://github.com/TehShrike/noddity-butler) module, which caches all content in a [LevelUP](https://github.com/rvagg/node-levelup) store.  The RSS server uses the same butler module - the main difference being that the RSS server is backed by an actual LevelDB store, while in the browser I'm just using the IndexedDB-backed [level.js](https://github.com/maxogden/level.js) (or [localstorage-down](https://github.com/No9/localstorage-down) in Safari, until [Apple gets off their ass](http://caniuse.com/#feat=indexeddb)).
+All of the content access is done by the [noddity-butler](https://github.com/TehShrike/noddity-butler) module, which caches all content in a [LevelUP](https://github.com/rvagg/node-levelup) store.  The RSS server uses the same butler module - the main difference being that the RSS server is backed by an actual LevelDB store, while in the browser I'm just using the IndexedDB-backed [fruitdown](https://github.com/nolanlawson/fruitdown) storage engine, which is backed by IndexedDB on all browsers ([even Safari!]((http://caniuse.com/#feat=indexeddb))).
 
-Theoretically, there are [potential storage concerns](https://developer.mozilla.org/en-US/docs/IndexedDB#Storage_limits), but I'm going to wait to worry about that until I have a blog or wiki approaching 20MiB of total markdown content.
+Theoretically, there are [potential storage concerns](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Browser_storage_limits_and_eviction_criteria), but I'm going to wait to worry about that until I have a blog or wiki approaching 20MiB of total markdown content.
 
 The butler will always serve up a locally cached version if one is available, meaning that Noddity will prefer to display old content immediately rather than an up-to-date version a second from now.
 
