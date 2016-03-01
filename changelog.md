@@ -1,3 +1,6 @@
+# 4.2.1
+
+- Fixing the build that I broke by missing localstorage-down in the debug code
 
 # 4.2.0
 

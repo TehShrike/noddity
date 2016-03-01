@@ -1,10 +1,9 @@
 var levelup = require('levelup')
-var Leveldown = require('localstorage-down')
-var storage = function leveldownFactory(location) { return new Leveldown(location) }
+var fruitdown = require('fruitdown')
 
 module.exports = {
 	clearCache: function clearCache() {
-		var level = levelup('noddity-content-3', { db: storage })
+		var level = levelup('noddity-content', { db: fruitdown })
 		level.createKeyStream().on('data', function(key) {
 			level.del(key)
 		})

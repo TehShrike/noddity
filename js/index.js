@@ -6,7 +6,7 @@ var model = require('./mainViewModel')
 var sub = require('subleveldown')
 var config = noddityConfig // Global
 
-var db = levelup('noddity-content-3', { db: fruitdown })
+var db = levelup('noddity-content', { db: fruitdown })
 
 config.title = config.name = (config.title || config.name)
 var normalizedSublevelName = config.title.replace(/[^\w]+/g, '')
