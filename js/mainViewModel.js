@@ -13,6 +13,16 @@ module.exports = function MainViewModel(butler, linkifyEmitter) {
 		data: config
 	}
 
+	var watching = false
+	function startWatchingForIndexChanges() {
+		if (!watching) {
+			watching = true
+			butler.on('index changed', function() {
+				butler.getPosts()
+			})
+		}
+	}
+
 	var titleRactive = new Ractive({
 		el: 'title',
 		template: '{{name}}{{#current.metadata.title}} | {{current.metadata.title}}{{/current.metadata.title}}'
@@ -58,6 +68,7 @@ module.exports = function MainViewModel(butler, linkifyEmitter) {
 				}
 				butler.getPost(postFilename, setPostTitle)
 				butler.refreshPost(postFilename)
+				startWatchingForIndexChanges()
 			})
 		})
 
