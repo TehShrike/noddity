@@ -64,6 +64,7 @@ module.exports = function MainViewModel(butler, linkifyEmitter) {
 					}
 				} else {
 					fixAnchorLinks(setCurrent.ractive, '#!/' + config.pagePathPrefix, postFilename)
+					slugifyHeaders(setCurrent.ractive)
 					routingEmitter.emit('loaded', postFilename)
 				}
 				butler.getPost(postFilename, setPostTitle)
@@ -82,5 +83,11 @@ function fixAnchorLinks(ractive, prefix, currentKey) {
 		if (href && href[0] === '#' && href.indexOf(prefix) !== 0) {
 			element.setAttribute('href', prefix + currentKey + href)
 		}
+	})
+}
+
+function slugifyHeaders(ractive) {
+	ractive.findAll('h1,h2,h3,h4,h5,h6').forEach(function (element) {
+		element.id = element.innerText.replace(/\W+/g, '-').toLowerCase()
 	})
 }
