@@ -48,6 +48,6 @@ module.exports = function() {
 function scrollToAnchor(anchor) {
 	var el = document.getElementById(anchor)
 	if (el) {
-		scrollTo(0, el.offsetTop)
+		el.scrollIntoView()
 	}
 }
