@@ -11,7 +11,7 @@ module.exports = function() {
 		router.replace('!/' + config.pagePathPrefix + config.errorPage)
 	})
 
-	routingEmitter.on('current', function(name) {
+	routingEmitter.on('loaded', function(name) {
 		scrollTo(0, 0)
 	})
 
