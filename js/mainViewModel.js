@@ -23,6 +23,8 @@ module.exports = function MainViewModel(butler, linkifyEmitter) {
 		}
 	}
 
+	butler.refreshIndex()
+
 	var titleRactive = new Ractive({
 		el: 'title',
 		template: '{{name}}{{#current.metadata.title}} | {{current.metadata.title}}{{/current.metadata.title}}'
