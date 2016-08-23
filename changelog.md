@@ -1,3 +1,21 @@
+# 4.5.0
+
+- The index.json (list of posts) is refreshed whenever the browser page is refreshed/loads [#38](https://github.com/TehShrike/noddity/issues/38)
+
+# 4.4.0
+
+- Scroll to the top of the page after the new page is finished being displayed, instead of when the navigation happens [#35](https://github.com/TehShrike/noddity/issues/35)
+
+# 4.3.0
+
+- Dropped a bunch of the favicons at different sizes because Chrome would reload them all on every hash change
+
+# 4.2.2, 4.2.3
+
+Jumped a version because of npm weirdness.
+
+- Load posts in parallel (4 simultaneously)
+
 # 4.2.1
 
 - Fixing the build that I broke by missing localstorage-down in the debug code
