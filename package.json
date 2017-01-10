@@ -24,7 +24,7 @@
   "dependencies": {
     "fruitdown": "1.0.1",
     "hash-brown-router": "^1.3.3",
-    "levelup": "~1.2.1",
+    "levelup": "~1.3.3",
     "noddity-butler": "^2.5.0",
     "noddity-linkifier": "~2.2.2",
     "noddity-render-dom": "^3.1.1",
