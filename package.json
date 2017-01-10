@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "fruitdown": "1.0.1",
-    "hash-brown-router": "^1.3.3",
+    "hash-brown-router": "^3.0.1",
     "levelup": "~1.2.1",
     "noddity-butler": "^2.5.0",
     "noddity-linkifier": "~2.2.2",
