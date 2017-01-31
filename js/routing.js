@@ -20,11 +20,12 @@ module.exports = function() {
 	})
 
 	router.add('!/' + config.pagePathPrefix + ':name([^#]+)#:anchor', function(parameters) {
-		if (current === parameters.name) {
+		var name = decodeURIComponent(parameters.name)
+		if (current === name) {
 			scrollToAnchor(parameters.anchor)
 		} else {
-			routingEmitter.emit('current', parameters.name, parameters)
-			current = parameters.name
+			routingEmitter.emit('current', name, parameters)
+			current = name
 			routingEmitter.once('loaded', function() {
 				scrollToAnchor(parameters.anchor)
 			})
@@ -32,10 +33,11 @@ module.exports = function() {
 	})
 
 	router.add('!/' + config.pagePathPrefix + ':name([^#]+)', function(parameters) {
-		routingEmitter.emit('current', parameters.name, parameters)
+		var name = decodeURIComponent(parameters.name)
+		routingEmitter.emit('current', name, parameters)
 	})
 
-	router.setDefault(function(path) {
+	router.on('not found', function(path) {
 		routingEmitter.emit('404', path)
 	})
 
