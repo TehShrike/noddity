@@ -1,3 +1,7 @@
+# 5.0.0
+
+- Noddity page links are now encoded.  Hash links that are clicked are now decoded after being received from the router. [#68](https://github.com/TehShrike/noddity/issues/68)
+
 # 4.5.0
 
 - The index.json (list of posts) is refreshed whenever the browser page is refreshed/loads [#38](https://github.com/TehShrike/noddity/issues/38)
