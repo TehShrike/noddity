@@ -10,6 +10,8 @@ If you have any questions at all, or any comments, email <me@JoshDuff.com> or hi
 
 # Noddity modules
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/TehShrike/noddity.svg)](https://greenkeeper.io/)
+
 - **Noddity** - this webapp
 	- **[noddity-linkifier](https://github.com/TehShrike/noddity-linkifier)** - parses inter-site links and replaces them with a-href links. Injected as a dependency into noddity-butler
 	- **[noddity-renderer](https://github.com/TehShrike/noddity-renderer)** - turns posts into Ractive elements. Injected as a dependency into noddity-butler
