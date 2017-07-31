@@ -47,6 +47,8 @@ module.exports = function MainViewModel(butler, linkifyEmitter) {
 		butler.getPost(pageName, function () {})
 	})
 
+	butler.refreshPost('post')
+
 	renderDom('post', options, function (err, setCurrent) {
 		if (err) {
 			console.error(err)
