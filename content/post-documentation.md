@@ -21,7 +21,7 @@ If you want your templates to not be parsed with the markdown parser (which adds
 
 ### Expressions
 
-Inside templates, you can also use fancy expressions - they get inserted as [Ractive templates](http://docs.ractivejs.org/latest/mustaches), which means you can pretty much use regular JavaScript inside moustaches.
+Inside templates, you can also use fancy expressions - they get inserted as [Ractive templates](https://ractivejs.org/docs/latest/mustaches.html), which means you can pretty much use regular JavaScript inside moustaches.
 
 Inside those expressions, you have certain values available to you.  You have the parameters passed in to the template, either as numbered expressions: `::template.md|value 1|value 2::` or as named expressions: `::template.md|first=value 1|first=value 2::`.
 
